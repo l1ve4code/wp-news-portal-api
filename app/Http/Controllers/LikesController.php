@@ -53,9 +53,9 @@ class LikesController extends Controller
             "post_id" => $fields["post_id"]
         ]);
 
-        if(isEmpty($created)) return response()->json(["error" => "Bad request"], 500);
+        if(!$created) return response()->json(["error" => "Bad request"], 400);
 
-        return response()->json($created);
+        return response()->json($created, 201);
     }
 
     /**
@@ -74,8 +74,8 @@ class LikesController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=201,
-     *          description="Successful operation",
+     *          response=200,
+     *          description="OK",
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -90,7 +90,13 @@ class LikesController extends Controller
      */
     public function destroy($id)
     {
+
+        if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
+
         $deleted = likes::destroy($id);
-        return response()->json($deleted);
+
+        if (!$deleted) return response()->json(["error" => "Bad Request"], 400);
+
+        return response()->json($deleted, 200);
     }
 }
