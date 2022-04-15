@@ -46,34 +46,37 @@ class PostController extends Controller
     public function store(Request $request)
     {
 
-        if(!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
+        if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
 
         $user_id = auth("sanctum")->user()->id;
 
         $fields = $request->validate([
             "category_id" => "required",
-            "group_id" => "required",
-            "title" => "required",
+            "group_id"    => "required",
+            "title"       => "required",
             "description" => "required",
-            "short_desc" => "required",
+            "short_desc"  => "required",
             "like_amount" => "required",
-            "see_amount" => "required",
+            "see_amount"  => "required",
             "comm_amount" => "required",
         ]);
 
-        $post = post::create([
+        $created = post::create([
             "category_id" => $fields["category_id"],
-            "group_id" => $fields["group_id"],
-            "user_id" => $user_id,
-            "title" => $fields["title"],
+            "group_id"    => $fields["group_id"],
+            "user_id"     => $user_id,
+            "title"       => $fields["title"],
             "description" => $fields["description"],
-            "short_desc" => $fields["short_desc"],
+            "short_desc"  => $fields["short_desc"],
             "like_amount" => $fields["like_amount"],
-            "see_amount" => $fields["see_amount"],
+            "see_amount"  => $fields["see_amount"],
             "comm_amount" => $fields["comm_amount"],
         ]);
 
-        return post::create($request->all());
+        if (!$created) return response()->json(["error" => "Bad request"], 400);
+
+        return response()->json($created, 201);
+
     }
 
     /**
@@ -125,6 +128,20 @@ class PostController extends Controller
      *              type="integer"
      *          )
      *      ),
+     *     @OA\RequestBody(
+     *          required=true,
+     *              @OA\JsonContent(
+     *                  required={"category_id","group_id","title","description","short_desc","like_amount","see_amount","comm_amount"},
+     *                  @OA\Property(property="category_id", type="number", example="1"),
+     *                  @OA\Property(property="group_id", type="number", example="1"),
+     *                  @OA\Property(property="title", type="string", example="Заголовок"),
+     *                  @OA\Property(property="description", type="string", example="Описание"),
+     *                  @OA\Property(property="short_desc", type="string", example="Краткое описание"),
+     *                  @OA\Property(property="like_amount", type="number", example="1"),
+     *                  @OA\Property(property="see_amount", type="number", example="1"),
+     *                  @OA\Property(property="comm_amount", type="number", example="1"),
+     *              ),
+     *      ),
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
@@ -142,11 +159,39 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
+
+        $user_id = auth("sanctum")->user()->id;
+
         $post = post::find($id);
 
-        $post->update($request->all());
+        $fields = $request->validate([
+            "category_id" => "required",
+            "group_id"    => "required",
+            "title"       => "required",
+            "description" => "required",
+            "short_desc"  => "required",
+            "like_amount" => "required",
+            "see_amount"  => "required",
+            "comm_amount" => "required",
+        ]);
 
-        return $post;
+        $updated = $post->update([
+            "category_id" => $fields["category_id"],
+            "group_id"    => $fields["group_id"],
+            "user_id"     => $user_id,
+            "title"       => $fields["title"],
+            "description" => $fields["description"],
+            "short_desc"  => $fields["short_desc"],
+            "like_amount" => $fields["like_amount"],
+            "see_amount"  => $fields["see_amount"],
+            "comm_amount" => $fields["comm_amount"],
+        ]);
+
+        if (!$updated) return response()->json(["error" => "Bad request"], 400);
+
+        return response()->json($updated, 201);
     }
 
     /**
@@ -165,8 +210,8 @@ class PostController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=201,
-     *          description="Successful operation",
+     *          response=200,
+     *          description="OK",
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -181,6 +226,12 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        post::destroy($id);
+        if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
+
+        $deleted = post::destroy($id);
+
+        if (!$deleted) return response()->json(["error" => "Bad Request"], 400);
+
+        return response()->json($deleted, 200);
     }
 }
