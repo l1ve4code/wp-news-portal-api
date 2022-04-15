@@ -17,22 +17,14 @@ class GroupsController extends Controller
      *      tags={"Группы"},
      *      summary="Получение списка групп",
      *      @OA\Response(
-     *          response=201,
-     *          description="Successful operation",
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      )
+     *          response=200,
+     *          description="OK",
+     *       )
      *     )
      */
     public function index()
     {
-        return response()->json(groups::all());
+        return response()->json(groups::all(), 200);
     }
 
     /**
@@ -91,9 +83,9 @@ class GroupsController extends Controller
             "admin_id" => $user_id,
         ]);
 
-        if(isEmpty($created)) return response()->json(["error" => "Bad request"], 400);
+        if(!$created) return response()->json(["error" => "Bad request"], 400);
 
-        return response()->json($created);
+        return response()->json($created, 201);
     }
 
     /**
@@ -112,16 +104,12 @@ class GroupsController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=201,
-     *          description="Successful operation",
+     *          response=200,
+     *          description="OK",
      *       ),
      *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
+     *          response=404,
+     *          description="Not Found"
      *      )
      * )
      */
@@ -129,11 +117,11 @@ class GroupsController extends Controller
     {
         $group = groups::find($id);
 
-        if (isEmpty($group)) return response()->json(["Error" => "Group doesn't exists"], 400);
+        if (!$group) return response()->json(["error" => "Group doesn't exists"], 404);
 
         $posts = post::where("group_id","=", $id)->orderBy("id", "desc")->get();
 
-        return response()->json(["group" => $group, "posts" => $posts]);
+        return response()->json(["group" => $group, "posts" => $posts], 200);
     }
 
     /**
@@ -152,16 +140,12 @@ class GroupsController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=201,
-     *          description="Successful operation",
+     *          response=200,
+     *          description="OK",
      *       ),
      *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
+     *          response=404,
+     *          description="Not found"
      *      )
      * )
      */
@@ -169,7 +153,9 @@ class GroupsController extends Controller
 
         $groups = groups::where("category_id", "=", $id)->get();
 
-        return response()->json(["group" => $groups]);
+        if(!$groups) return response()->json(["error" => "Not found"], 404);
+
+        return response()->json(["group" => $groups], 200);
     }
 
     /**
@@ -186,6 +172,17 @@ class GroupsController extends Controller
      *          @OA\Schema(
      *              type="integer"
      *          )
+     *      ),
+     *     @OA\RequestBody(
+     *          required=true,
+     *              @OA\JsonContent(
+     *                  required={"category_id","post_id","title","description","subs_amount"},
+     *                  @OA\Property(property="category_id", type="number", example="1"),
+     *                  @OA\Property(property="post_id", type="number", example="5"),
+     *                  @OA\Property(property="title", type="string", example="PolyNews"),
+     *                  @OA\Property(property="description", type="string", example="Какое-то описание"),
+     *                  @OA\Property(property="subs_amount", type="number", example="0"),
+     *              ),
      *      ),
      *      @OA\Response(
      *          response=201,
@@ -204,11 +201,33 @@ class GroupsController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        if(!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
+
+        $user_id = auth("sanctum")->user()->id;
+
         $group = groups::find($id);
 
-        $group->update($request->all());
+        $fields = $request->validate([
+            "category_id" => "required",
+            "post_id" => "required",
+            "title" => "required",
+            "description" => "required",
+            "subs_amount" => "required",
+        ]);
 
-        return response()->json($group);
+        $updated = $group->update([
+            "category_id" => $fields["category_id"],
+            "post_id" => $fields["post_id"],
+            "title" => $fields["title"],
+            "description" => $fields["description"],
+            "subs_amount" => $fields["subs_amount"],
+            "admin_id" => $user_id,
+        ]);
+
+        if (!$updated) return response()->json(["error" => "Bad Request"], 400);
+
+        return response()->json($updated, 201);
     }
 
     /**
@@ -227,8 +246,8 @@ class GroupsController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=201,
-     *          description="Successful operation",
+     *          response=200,
+     *          description="OK",
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -243,7 +262,12 @@ class GroupsController extends Controller
      */
     public function destroy($id)
     {
+        if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
+
         $deleted = groups::destroy($id);
-        return response()->json($deleted);
+
+        if (!$deleted) return response()->json(["error" => "Bad Request"], 400);
+
+        return response()->json($deleted, 200);
     }
 }

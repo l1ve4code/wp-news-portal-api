@@ -378,14 +378,11 @@
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Successful operation"
+                    "200": {
+                        "description": "OK"
                     },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
+                    "404": {
+                        "description": "Not Found"
                     }
                 }
             },
@@ -407,8 +404,8 @@
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Successful operation"
+                    "200": {
+                        "description": "OK"
                     },
                     "400": {
                         "description": "Bad Request"
@@ -432,14 +429,8 @@
                 "summary": "Получение списка групп",
                 "operationId": "getGroupsList",
                 "responses": {
-                    "201": {
-                        "description": "Successful operation"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
+                    "200": {
+                        "description": "OK"
                     }
                 }
             },
@@ -525,14 +516,11 @@
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Successful operation"
+                    "200": {
+                        "description": "OK"
                     },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
+                    "404": {
+                        "description": "Not Found"
                     }
                 }
             },
@@ -553,6 +541,45 @@
                         }
                     }
                 ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "category_id",
+                                    "post_id",
+                                    "title",
+                                    "description",
+                                    "subs_amount"
+                                ],
+                                "properties": {
+                                    "category_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "post_id": {
+                                        "type": "number",
+                                        "example": "5"
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "example": "PolyNews"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Какое-то описание"
+                                    },
+                                    "subs_amount": {
+                                        "type": "number",
+                                        "example": "0"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "201": {
                         "description": "Successful operation"
@@ -588,8 +615,8 @@
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Successful operation"
+                    "200": {
+                        "description": "OK"
                     },
                     "400": {
                         "description": "Bad Request"
@@ -624,14 +651,11 @@
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Successful operation"
+                    "200": {
+                        "description": "OK"
                     },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
+                    "404": {
+                        "description": "Not found"
                     }
                 }
             }
