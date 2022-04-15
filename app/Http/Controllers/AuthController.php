@@ -149,13 +149,11 @@ class AuthController extends Controller
      *          response=400,
      *          description="Bad Request"
      *      ),
-     *     security={{ "apiKey": {} }}
+     *     security={{ "sanctum": {} }}
      * )
      */
     public function logout()
     {
-
-//        auth()->user()->tokens()->delete();
 
         return response()->json([
             "message" => "Logged out"
