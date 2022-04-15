@@ -52,7 +52,7 @@ class CategoryController extends Controller
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *     security={{ "apiKey": {} }}
+     *     security={{ "sanctum": {} }}
      * )
      */
     public function store(Request $request)
@@ -138,7 +138,7 @@ class CategoryController extends Controller
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *     security={{ "apiKey": {} }}
+     *     security={{ "sanctum": {} }}
      * )
      */
     public function update(Request $request, $id)
@@ -185,7 +185,7 @@ class CategoryController extends Controller
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *     security={{ "apiKey": {} }}
+     *     security={{ "sanctum": {} }}
      * )
      */
     public function destroy($id)

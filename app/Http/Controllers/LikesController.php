@@ -34,7 +34,7 @@ class LikesController extends Controller
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *     security={{ "apiKey": {} }}
+     *     security={{ "sanctum": {} }}
      * )
      */
     public function store(Request $request)
@@ -84,7 +84,7 @@ class LikesController extends Controller
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *     security={{ "apiKey": {} }}
+     *     security={{ "sanctum": {} }}
      * )
      */
     public function destroy($id)

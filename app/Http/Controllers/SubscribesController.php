@@ -37,7 +37,7 @@ class SubscribesController extends Controller
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *     security={{ "apiKey": {} }}
+     *     security={{ "sanctum": {} }}
      * )
      */
     public function store_group($id)
@@ -80,7 +80,7 @@ class SubscribesController extends Controller
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *     security={{ "apiKey": {} }}
+     *     security={{ "sanctum": {} }}
      * )
      */
     public function show($id)
@@ -121,7 +121,7 @@ class SubscribesController extends Controller
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *     security={{ "apiKey": {} }}
+     *     security={{ "sanctum": {} }}
      * )
      */
     public function destroy($id)

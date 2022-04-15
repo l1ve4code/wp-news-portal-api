@@ -22,7 +22,7 @@ class SaveController extends Controller
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *     security={{ "apiKey": {} }}
+     *     security={{ "sanctum": {} }}
      *     )
      */
     public function index()
@@ -106,7 +106,7 @@ class SaveController extends Controller
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *     security={{ "apiKey": {} }}
+     *     security={{ "sanctum": {} }}
      * )
      */
     public function destroy($id)

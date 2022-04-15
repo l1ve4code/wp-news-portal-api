@@ -271,7 +271,7 @@
                 },
                 "security": [
                     {
-                        "apiKey": []
+                        "sanctum": []
                     }
                 ]
             }
@@ -352,7 +352,7 @@
                 },
                 "security": [
                     {
-                        "apiKey": []
+                        "sanctum": []
                     }
                 ]
             },
@@ -386,7 +386,7 @@
                 },
                 "security": [
                     {
-                        "apiKey": []
+                        "sanctum": []
                     }
                 ]
             }
