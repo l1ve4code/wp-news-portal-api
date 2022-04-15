@@ -164,25 +164,6 @@
             }
         },
         "/comment": {
-            "get": {
-                "tags": [
-                    "Комментарии"
-                ],
-                "summary": "Получение списка комментариев",
-                "description": "Возвращает список комментариев",
-                "operationId": "getCommentList",
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                }
-            },
             "post": {
                 "tags": [
                     "Комментарии"
@@ -663,25 +644,6 @@
             }
         },
         "/post": {
-            "get": {
-                "tags": [
-                    "Посты"
-                ],
-                "summary": "Get list of posts",
-                "description": "Returns list of posts",
-                "operationId": "getPostList",
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                }
-            },
             "post": {
                 "tags": [
                     "Посты"
@@ -853,75 +815,6 @@
             }
         },
         "/save/{id}": {
-            "get": {
-                "tags": [
-                    "Сохраненные группы"
-                ],
-                "summary": "Get save information",
-                "description": "Returns save data",
-                "operationId": "getSaveById",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Save id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "Сохраненные группы"
-                ],
-                "summary": "Update existing save",
-                "description": "Returns updated save data",
-                "operationId": "updateSave",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Save id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "202": {
-                        "description": "Successful operation"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            },
             "delete": {
                 "tags": [
                     "Сохраненные группы"

@@ -7,41 +7,6 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    /**
-     * @OA\Get(
-     *      path="/post",
-     *      operationId="getPostList",
-     *      tags={"Посты"},
-     *      summary="Get list of posts",
-     *      description="Returns list of posts",
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *       ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
-     *     )
-     */
-    public function index()
-    {
-        return post::all();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-    }
 
     /**
      * @OA\Post(
@@ -71,8 +36,9 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "post_id" => "required",
+            "category_id" => "required",
             "user_id" => "required",
+            "group_id" => "required",
             "title" => "required",
             "description" => "required",
             "short_desc" => "required",

@@ -39,7 +39,6 @@ Route::delete("/category/{id}", [CategoryController::class, "destroy"]);
 Route::get("/category/search/{name}", [CategoryController::class, "search"]);
 
 // COMMENT
-Route::get("/comment", [CommentController::class, "index"]);
 Route::post("/comment", [CommentController::class, "store"]);
 Route::get("/comment/{id}", [CommentController::class, "show"]);
 Route::delete("/comment/{id}", [CommentController::class, "destroy"]);
@@ -64,7 +63,6 @@ Route::put("/picture/{id}", [PictureController::class, "update"]);
 Route::delete("/picture/{id}", [PictureController::class, "destroy"]);
 
 // POST
-Route::get("/post", [PostController::class, "index"]);
 Route::post("/post", [PostController::class, "store"]);
 Route::get("/post/{id}", [PostController::class, "show"]);
 Route::put("/post/{id}", [PostController::class, "update"]);
@@ -73,8 +71,6 @@ Route::delete("/post/{id}", [PostController::class, "destroy"]);
 // SAVE
 Route::get("/save", [SaveController::class, "index"]);
 Route::post("/save", [SaveController::class, "store"]);
-Route::get("/save/{id}", [SaveController::class, "show"]);
-Route::put("/save/{id}", [SaveController::class, "update"]);
 Route::delete("/save/{id}", [SaveController::class, "destroy"]);
 
 // SUBSCRIBES

@@ -8,31 +8,6 @@ use function PHPUnit\Framework\isEmpty;
 
 class CommentController extends Controller
 {
-    /**
-     * @OA\Get(
-     *      path="/comment",
-     *      operationId="getCommentList",
-     *      tags={"Комментарии"},
-     *      summary="Получение списка комментариев",
-     *      description="Возвращает список комментариев",
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *       ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
-     *     )
-     */
-    public function index()
-    {
-        return response()->json(comment::all());
-    }
 
     /**
      * @OA\Post(
