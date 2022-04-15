@@ -19,7 +19,7 @@
         "/category": {
             "get": {
                 "tags": [
-                    "Category"
+                    "Категории"
                 ],
                 "summary": "Get list of categories",
                 "description": "Returns list of categories",
@@ -38,7 +38,7 @@
             },
             "post": {
                 "tags": [
-                    "Category"
+                    "Категории"
                 ],
                 "summary": "Store new category",
                 "description": "Returns category data",
@@ -62,7 +62,7 @@
         "/category/{id}": {
             "get": {
                 "tags": [
-                    "Category"
+                    "Категории"
                 ],
                 "summary": "Get category information",
                 "description": "Returns category data",
@@ -95,7 +95,7 @@
             },
             "put": {
                 "tags": [
-                    "Category"
+                    "Категории"
                 ],
                 "summary": "Update existing category",
                 "description": "Returns updated category data",
@@ -131,7 +131,7 @@
             },
             "delete": {
                 "tags": [
-                    "Category"
+                    "Категории"
                 ],
                 "summary": "Delete existing category",
                 "description": "Deletes a record and returns no content",
@@ -166,7 +166,7 @@
         "/comment": {
             "get": {
                 "tags": [
-                    "Comment"
+                    "Комментарии"
                 ],
                 "summary": "Get list of comments",
                 "description": "Returns list of comments",
@@ -185,7 +185,7 @@
             },
             "post": {
                 "tags": [
-                    "Comment"
+                    "Комментарии"
                 ],
                 "summary": "Store new comment",
                 "description": "Returns comment data",
@@ -209,7 +209,7 @@
         "/comment/{id}": {
             "get": {
                 "tags": [
-                    "Comment"
+                    "Комментарии"
                 ],
                 "summary": "Get comment information",
                 "description": "Returns comment data",
@@ -242,7 +242,7 @@
             },
             "put": {
                 "tags": [
-                    "Comment"
+                    "Комментарии"
                 ],
                 "summary": "Update existing comment",
                 "description": "Returns updated comment data",
@@ -278,7 +278,7 @@
             },
             "delete": {
                 "tags": [
-                    "Comment"
+                    "Комментарии"
                 ],
                 "summary": "Delete existing comment",
                 "description": "Deletes a record and returns no content",
@@ -313,7 +313,7 @@
         "/groups": {
             "get": {
                 "tags": [
-                    "Groups"
+                    "Группы"
                 ],
                 "summary": "Get list of groups",
                 "description": "Returns list of groups",
@@ -332,7 +332,7 @@
             },
             "post": {
                 "tags": [
-                    "Groups"
+                    "Группы"
                 ],
                 "summary": "Store new group",
                 "description": "Returns group data",
@@ -356,7 +356,7 @@
         "/groups/{id}": {
             "get": {
                 "tags": [
-                    "Groups"
+                    "Группы"
                 ],
                 "summary": "Get groups information",
                 "description": "Returns group data",
@@ -389,7 +389,7 @@
             },
             "put": {
                 "tags": [
-                    "Groups"
+                    "Группы"
                 ],
                 "summary": "Update existing group",
                 "description": "Returns updated group data",
@@ -425,7 +425,7 @@
             },
             "delete": {
                 "tags": [
-                    "Groups"
+                    "Группы"
                 ],
                 "summary": "Delete existing group",
                 "description": "Deletes a record and returns no content",
@@ -460,7 +460,7 @@
         "/likes": {
             "get": {
                 "tags": [
-                    "Likes"
+                    "Лайки"
                 ],
                 "summary": "Get list of likes",
                 "description": "Returns list of likes",
@@ -479,7 +479,7 @@
             },
             "post": {
                 "tags": [
-                    "Likes"
+                    "Лайки"
                 ],
                 "summary": "Store new like",
                 "description": "Returns like data",
@@ -503,7 +503,7 @@
         "/likes/{id}": {
             "get": {
                 "tags": [
-                    "Likes"
+                    "Лайки"
                 ],
                 "summary": "Get like information",
                 "description": "Returns like data",
@@ -536,7 +536,7 @@
             },
             "put": {
                 "tags": [
-                    "Likes"
+                    "Лайки"
                 ],
                 "summary": "Update existing like",
                 "description": "Returns updated like data",
@@ -572,7 +572,7 @@
             },
             "delete": {
                 "tags": [
-                    "Likes"
+                    "Лайки"
                 ],
                 "summary": "Delete existing like",
                 "description": "Deletes a record and returns no content",
@@ -607,7 +607,7 @@
         "/picture": {
             "get": {
                 "tags": [
-                    "Picture"
+                    "Изображение [ПОЗЖЕ]"
                 ],
                 "summary": "Get list of pictures",
                 "description": "Returns list of pictures",
@@ -626,7 +626,7 @@
             },
             "post": {
                 "tags": [
-                    "Picture"
+                    "Изображение [ПОЗЖЕ]"
                 ],
                 "summary": "Store new picture",
                 "description": "Returns picture data",
@@ -650,7 +650,7 @@
         "/picture/{id}": {
             "get": {
                 "tags": [
-                    "Picture"
+                    "Изображение [ПОЗЖЕ]"
                 ],
                 "summary": "Get picture information",
                 "description": "Returns picture data",
@@ -683,7 +683,7 @@
             },
             "put": {
                 "tags": [
-                    "Picture"
+                    "Изображение [ПОЗЖЕ]"
                 ],
                 "summary": "Update existing picture",
                 "description": "Returns updated picture data",
@@ -719,7 +719,7 @@
             },
             "delete": {
                 "tags": [
-                    "Picture"
+                    "Изображение [ПОЗЖЕ]"
                 ],
                 "summary": "Delete existing picture",
                 "description": "Deletes a record and returns no content",
@@ -754,7 +754,7 @@
         "/post": {
             "get": {
                 "tags": [
-                    "Post"
+                    "Посты"
                 ],
                 "summary": "Get list of posts",
                 "description": "Returns list of posts",
@@ -773,7 +773,7 @@
             },
             "post": {
                 "tags": [
-                    "Post"
+                    "Посты"
                 ],
                 "summary": "Store new post",
                 "description": "Returns post data",
@@ -797,7 +797,7 @@
         "/post/{id}": {
             "get": {
                 "tags": [
-                    "Post"
+                    "Посты"
                 ],
                 "summary": "Get post information",
                 "description": "Returns post data",
@@ -830,7 +830,7 @@
             },
             "put": {
                 "tags": [
-                    "Post"
+                    "Посты"
                 ],
                 "summary": "Update existing post",
                 "description": "Returns updated post data",
@@ -866,7 +866,7 @@
             },
             "delete": {
                 "tags": [
-                    "Post"
+                    "Посты"
                 ],
                 "summary": "Delete existing post",
                 "description": "Deletes a record and returns no content",
@@ -901,7 +901,7 @@
         "/save": {
             "get": {
                 "tags": [
-                    "Save"
+                    "Сохраненные группы"
                 ],
                 "summary": "Get list of saves",
                 "description": "Returns list of saves",
@@ -920,7 +920,7 @@
             },
             "post": {
                 "tags": [
-                    "Save"
+                    "Сохраненные группы"
                 ],
                 "summary": "Store new save",
                 "description": "Returns save data",
@@ -944,7 +944,7 @@
         "/save/{id}": {
             "get": {
                 "tags": [
-                    "Save"
+                    "Сохраненные группы"
                 ],
                 "summary": "Get save information",
                 "description": "Returns save data",
@@ -977,7 +977,7 @@
             },
             "put": {
                 "tags": [
-                    "Save"
+                    "Сохраненные группы"
                 ],
                 "summary": "Update existing save",
                 "description": "Returns updated save data",
@@ -1013,7 +1013,7 @@
             },
             "delete": {
                 "tags": [
-                    "Save"
+                    "Сохраненные группы"
                 ],
                 "summary": "Delete existing save",
                 "description": "Deletes a record and returns no content",
@@ -1048,7 +1048,7 @@
         "/subscribes": {
             "get": {
                 "tags": [
-                    "Subscribes"
+                    "Подписки"
                 ],
                 "summary": "Get list of subscribes",
                 "description": "Returns list of subscribes",
@@ -1067,7 +1067,7 @@
             },
             "post": {
                 "tags": [
-                    "Subscribes"
+                    "Подписки"
                 ],
                 "summary": "Store new subscribes",
                 "description": "Returns subscribes data",
@@ -1091,7 +1091,7 @@
         "/subscribes/{id}": {
             "get": {
                 "tags": [
-                    "Subscribes"
+                    "Подписки"
                 ],
                 "summary": "Get subscribes information",
                 "description": "Returns subscribes data",
@@ -1124,7 +1124,7 @@
             },
             "put": {
                 "tags": [
-                    "Subscribes"
+                    "Подписки"
                 ],
                 "summary": "Update existing subscribes",
                 "description": "Returns updated subscribes data",
@@ -1160,7 +1160,7 @@
             },
             "delete": {
                 "tags": [
-                    "Subscribes"
+                    "Подписки"
                 ],
                 "summary": "Delete existing subscribes",
                 "description": "Deletes a record and returns no content",
@@ -1195,36 +1195,36 @@
     },
     "tags": [
         {
-            "name": "Category",
-            "description": "API Endpoints of Category"
+            "name": "Категории",
+            "description": "Ссылки для работы с категориями"
         },
         {
-            "name": "Comment",
-            "description": "API Endpoints of Comment"
+            "name": "Комментарии",
+            "description": "Ссылки для работы с комментариями"
         },
         {
-            "name": "Groups",
-            "description": "API Endpoints of Groups"
+            "name": "Группы",
+            "description": "Ссылки для работы с группами"
         },
         {
-            "name": "Likes",
-            "description": "API Endpoints of Likes"
+            "name": "Лайки",
+            "description": "Ссылки для работы с лайками"
         },
         {
-            "name": "Picture",
-            "description": "API Endpoints of Picture"
+            "name": "Изображение [ПОЗЖЕ]",
+            "description": "Ссылки для работы с изображениями"
         },
         {
-            "name": "Post",
-            "description": "API Endpoints of Post"
+            "name": "Посты",
+            "description": "Ссылки для работы с постами"
         },
         {
-            "name": "Save",
-            "description": "API Endpoints of Save"
+            "name": "Сохраненные группы",
+            "description": "Ссылки для работы с сохраненными группами"
         },
         {
-            "name": "Subscribes",
-            "description": "API Endpoints of Subscribes"
+            "name": "Подписки",
+            "description": "Ссылки для работы с подписками"
         }
     ],
     "security": [

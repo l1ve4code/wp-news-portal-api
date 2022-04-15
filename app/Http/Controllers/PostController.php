@@ -11,7 +11,7 @@ class PostController extends Controller
      * @OA\Get(
      *      path="/post",
      *      operationId="getPostList",
-     *      tags={"Post"},
+     *      tags={"Посты"},
      *      summary="Get list of posts",
      *      description="Returns list of posts",
      *      @OA\Response(
@@ -47,7 +47,7 @@ class PostController extends Controller
      * @OA\Post(
      *      path="/post",
      *      operationId="storePost",
-     *      tags={"Post"},
+     *      tags={"Посты"},
      *      summary="Store new post",
      *      description="Returns post data",
      *      @OA\Response(
@@ -88,7 +88,7 @@ class PostController extends Controller
      * @OA\Get(
      *      path="/post/{id}",
      *      operationId="getPostById",
-     *      tags={"Post"},
+     *      tags={"Посты"},
      *      summary="Get post information",
      *      description="Returns post data",
      *      @OA\Parameter(
@@ -138,7 +138,7 @@ class PostController extends Controller
      * @OA\Put(
      *      path="/post/{id}",
      *      operationId="updatePost",
-     *      tags={"Post"},
+     *      tags={"Посты"},
      *      summary="Update existing post",
      *      description="Returns updated post data",
      *      @OA\Parameter(
@@ -185,7 +185,7 @@ class PostController extends Controller
      * @OA\Delete(
      *      path="/post/{id}",
      *      operationId="deletePost",
-     *      tags={"Post"},
+     *      tags={"Посты"},
      *      summary="Delete existing post",
      *      description="Deletes a record and returns no content",
      *      @OA\Parameter(

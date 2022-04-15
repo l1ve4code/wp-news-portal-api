@@ -11,7 +11,7 @@ class CommentController extends Controller
      * @OA\Get(
      *      path="/comment",
      *      operationId="getCommentList",
-     *      tags={"Comment"},
+     *      tags={"Комментарии"},
      *      summary="Get list of comments",
      *      description="Returns list of comments",
      *      @OA\Response(
@@ -47,7 +47,7 @@ class CommentController extends Controller
      * @OA\Post(
      *      path="/comment",
      *      operationId="storeComment",
-     *      tags={"Comment"},
+     *      tags={"Комментарии"},
      *      summary="Store new comment",
      *      description="Returns comment data",
      *      @OA\Response(
@@ -84,7 +84,7 @@ class CommentController extends Controller
      * @OA\Get(
      *      path="/comment/{id}",
      *      operationId="getCommentById",
-     *      tags={"Comment"},
+     *      tags={"Комментарии"},
      *      summary="Get comment information",
      *      description="Returns comment data",
      *      @OA\Parameter(
@@ -134,7 +134,7 @@ class CommentController extends Controller
      * @OA\Put(
      *      path="/comment/{id}",
      *      operationId="updateComment",
-     *      tags={"Comment"},
+     *      tags={"Комментарии"},
      *      summary="Update existing comment",
      *      description="Returns updated comment data",
      *      @OA\Parameter(
@@ -181,7 +181,7 @@ class CommentController extends Controller
      * @OA\Delete(
      *      path="/comment/{id}",
      *      operationId="deleteComment",
-     *      tags={"Comment"},
+     *      tags={"Комментарии"},
      *      summary="Delete existing comment",
      *      description="Deletes a record and returns no content",
      *      @OA\Parameter(

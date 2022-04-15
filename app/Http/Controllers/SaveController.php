@@ -12,7 +12,7 @@ class SaveController extends Controller
      * @OA\Get(
      *      path="/save",
      *      operationId="getSaveList",
-     *      tags={"Save"},
+     *      tags={"Сохраненные группы"},
      *      summary="Get list of saves",
      *      description="Returns list of saves",
      *      @OA\Response(
@@ -48,7 +48,7 @@ class SaveController extends Controller
      * @OA\Post(
      *      path="/save",
      *      operationId="storeSave",
-     *      tags={"Save"},
+     *      tags={"Сохраненные группы"},
      *      summary="Store new save",
      *      description="Returns save data",
      *      @OA\Response(
@@ -83,7 +83,7 @@ class SaveController extends Controller
      * @OA\Get(
      *      path="/save/{id}",
      *      operationId="getSaveById",
-     *      tags={"Save"},
+     *      tags={"Сохраненные группы"},
      *      summary="Get save information",
      *      description="Returns save data",
      *      @OA\Parameter(
@@ -133,7 +133,7 @@ class SaveController extends Controller
      * @OA\Put(
      *      path="/save/{id}",
      *      operationId="updateSave",
-     *      tags={"Save"},
+     *      tags={"Сохраненные группы"},
      *      summary="Update existing save",
      *      description="Returns updated save data",
      *      @OA\Parameter(
@@ -180,7 +180,7 @@ class SaveController extends Controller
      * @OA\Delete(
      *      path="/save/{id}",
      *      operationId="deleteSave",
-     *      tags={"Save"},
+     *      tags={"Сохраненные группы"},
      *      summary="Delete existing save",
      *      description="Deletes a record and returns no content",
      *      @OA\Parameter(

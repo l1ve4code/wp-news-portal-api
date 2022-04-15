@@ -13,7 +13,7 @@ class CategoryController extends Controller
      * @OA\Get(
      *      path="/category",
      *      operationId="getCategoryList",
-     *      tags={"Category"},
+     *      tags={"Категории"},
      *      summary="Get list of categories",
      *      description="Returns list of categories",
      *      @OA\Response(
@@ -49,7 +49,7 @@ class CategoryController extends Controller
      * @OA\Post(
      *      path="/category",
      *      operationId="storeCategory",
-     *      tags={"Category"},
+     *      tags={"Категории"},
      *      summary="Store new category",
      *      description="Returns category data",
      *      @OA\Response(
@@ -83,7 +83,7 @@ class CategoryController extends Controller
      * @OA\Get(
      *      path="/category/{id}",
      *      operationId="getCategoryById",
-     *      tags={"Category"},
+     *      tags={"Категории"},
      *      summary="Get category information",
      *      description="Returns category data",
      *      @OA\Parameter(
@@ -133,7 +133,7 @@ class CategoryController extends Controller
      * @OA\Put(
      *      path="/category/{id}",
      *      operationId="updateCategory",
-     *      tags={"Category"},
+     *      tags={"Категории"},
      *      summary="Update existing category",
      *      description="Returns updated category data",
      *      @OA\Parameter(
@@ -180,7 +180,7 @@ class CategoryController extends Controller
      * @OA\Delete(
      *      path="/category/{id}",
      *      operationId="deleteCategory",
-     *      tags={"Category"},
+     *      tags={"Категории"},
      *      summary="Delete existing category",
      *      description="Deletes a record and returns no content",
      *      @OA\Parameter(

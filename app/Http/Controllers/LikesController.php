@@ -11,7 +11,7 @@ class LikesController extends Controller
      * @OA\Get(
      *      path="/likes",
      *      operationId="getLikesList",
-     *      tags={"Likes"},
+     *      tags={"Лайки"},
      *      summary="Get list of likes",
      *      description="Returns list of likes",
      *      @OA\Response(
@@ -47,7 +47,7 @@ class LikesController extends Controller
      * @OA\Post(
      *      path="/likes",
      *      operationId="storeLikes",
-     *      tags={"Likes"},
+     *      tags={"Лайки"},
      *      summary="Store new like",
      *      description="Returns like data",
      *      @OA\Response(
@@ -82,7 +82,7 @@ class LikesController extends Controller
      * @OA\Get(
      *      path="/likes/{id}",
      *      operationId="getLikeById",
-     *      tags={"Likes"},
+     *      tags={"Лайки"},
      *      summary="Get like information",
      *      description="Returns like data",
      *      @OA\Parameter(
@@ -132,7 +132,7 @@ class LikesController extends Controller
      * @OA\Put(
      *      path="/likes/{id}",
      *      operationId="updateLike",
-     *      tags={"Likes"},
+     *      tags={"Лайки"},
      *      summary="Update existing like",
      *      description="Returns updated like data",
      *      @OA\Parameter(
@@ -179,7 +179,7 @@ class LikesController extends Controller
      * @OA\Delete(
      *      path="/likes/{id}",
      *      operationId="deleteLike",
-     *      tags={"Likes"},
+     *      tags={"Лайки"},
      *      summary="Delete existing like",
      *      description="Deletes a record and returns no content",
      *      @OA\Parameter(

@@ -11,7 +11,7 @@ class SubscribesController extends Controller
      * @OA\Get(
      *      path="/subscribes",
      *      operationId="getSubscribesList",
-     *      tags={"Subscribes"},
+     *      tags={"Подписки"},
      *      summary="Get list of subscribes",
      *      description="Returns list of subscribes",
      *      @OA\Response(
@@ -47,7 +47,7 @@ class SubscribesController extends Controller
      * @OA\Post(
      *      path="/subscribes",
      *      operationId="storeSubscribes",
-     *      tags={"Subscribes"},
+     *      tags={"Подписки"},
      *      summary="Store new subscribes",
      *      description="Returns subscribes data",
      *      @OA\Response(
@@ -82,7 +82,7 @@ class SubscribesController extends Controller
      * @OA\Get(
      *      path="/subscribes/{id}",
      *      operationId="getSubscribesById",
-     *      tags={"Subscribes"},
+     *      tags={"Подписки"},
      *      summary="Get subscribes information",
      *      description="Returns subscribes data",
      *      @OA\Parameter(
@@ -132,7 +132,7 @@ class SubscribesController extends Controller
      * @OA\Put(
      *      path="/subscribes/{id}",
      *      operationId="updateSubscribes",
-     *      tags={"Subscribes"},
+     *      tags={"Подписки"},
      *      summary="Update existing subscribes",
      *      description="Returns updated subscribes data",
      *      @OA\Parameter(
@@ -179,7 +179,7 @@ class SubscribesController extends Controller
      * @OA\Delete(
      *      path="/subscribes/{id}",
      *      operationId="deleteSubscribes",
-     *      tags={"Subscribes"},
+     *      tags={"Подписки"},
      *      summary="Delete existing subscribes",
      *      description="Deletes a record and returns no content",
      *      @OA\Parameter(

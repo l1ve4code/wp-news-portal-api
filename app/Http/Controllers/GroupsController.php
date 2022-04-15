@@ -12,7 +12,7 @@ class GroupsController extends Controller
      * @OA\Get(
      *      path="/groups",
      *      operationId="getGroupsList",
-     *      tags={"Groups"},
+     *      tags={"Группы"},
      *      summary="Get list of groups",
      *      description="Returns list of groups",
      *      @OA\Response(
@@ -48,7 +48,7 @@ class GroupsController extends Controller
      * @OA\Post(
      *      path="/groups",
      *      operationId="storeGroups",
-     *      tags={"Groups"},
+     *      tags={"Группы"},
      *      summary="Store new group",
      *      description="Returns group data",
      *      @OA\Response(
@@ -87,7 +87,7 @@ class GroupsController extends Controller
      * @OA\Get(
      *      path="/groups/{id}",
      *      operationId="getGroupsById",
-     *      tags={"Groups"},
+     *      tags={"Группы"},
      *      summary="Get groups information",
      *      description="Returns group data",
      *      @OA\Parameter(
@@ -137,7 +137,7 @@ class GroupsController extends Controller
      * @OA\Put(
      *      path="/groups/{id}",
      *      operationId="updateGroup",
-     *      tags={"Groups"},
+     *      tags={"Группы"},
      *      summary="Update existing group",
      *      description="Returns updated group data",
      *      @OA\Parameter(
@@ -184,7 +184,7 @@ class GroupsController extends Controller
      * @OA\Delete(
      *      path="/groups/{id}",
      *      operationId="deleteGroup",
-     *      tags={"Groups"},
+     *      tags={"Группы"},
      *      summary="Delete existing group",
      *      description="Deletes a record and returns no content",
      *      @OA\Parameter(

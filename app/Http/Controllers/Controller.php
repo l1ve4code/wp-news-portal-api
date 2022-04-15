@@ -24,36 +24,36 @@ use Illuminate\Routing\Controller as BaseController;
  * )
  *
  * @OA\Tag(
- *     name="Category",
- *     description="API Endpoints of Category"
+ *     name="Категории",
+ *     description="Ссылки для работы с категориями"
  * )
  * @OA\Tag(
- *     name="Comment",
- *     description="API Endpoints of Comment"
+ *     name="Комментарии",
+ *     description="Ссылки для работы с комментариями"
  * )
  * @OA\Tag(
- *     name="Groups",
- *     description="API Endpoints of Groups"
+ *     name="Группы",
+ *     description="Ссылки для работы с группами"
  * )
  * @OA\Tag(
- *     name="Likes",
- *     description="API Endpoints of Likes"
+ *     name="Лайки",
+ *     description="Ссылки для работы с лайками"
  * )
  * @OA\Tag(
- *     name="Picture",
- *     description="API Endpoints of Picture"
+ *     name="Изображение [ПОЗЖЕ]",
+ *     description="Ссылки для работы с изображениями"
  * )
  * @OA\Tag(
- *     name="Post",
- *     description="API Endpoints of Post"
+ *     name="Посты",
+ *     description="Ссылки для работы с постами"
  * )
  * @OA\Tag(
- *     name="Save",
- *     description="API Endpoints of Save"
+ *     name="Сохраненные группы",
+ *     description="Ссылки для работы с сохраненными группами"
  * )
  * @OA\Tag(
- *     name="Subscribes",
- *     description="API Endpoints of Subscribes"
+ *     name="Подписки",
+ *     description="Ссылки для работы с подписками"
  * )
  */
 class Controller extends BaseController

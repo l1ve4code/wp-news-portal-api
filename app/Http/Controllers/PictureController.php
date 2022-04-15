@@ -11,7 +11,7 @@ class PictureController extends Controller
      * @OA\Get(
      *      path="/picture",
      *      operationId="getPictureList",
-     *      tags={"Picture"},
+     *      tags={"Изображение [ПОЗЖЕ]"},
      *      summary="Get list of pictures",
      *      description="Returns list of pictures",
      *      @OA\Response(
@@ -47,7 +47,7 @@ class PictureController extends Controller
      * @OA\Post(
      *      path="/picture",
      *      operationId="storePicture",
-     *      tags={"Picture"},
+     *      tags={"Изображение [ПОЗЖЕ]"},
      *      summary="Store new picture",
      *      description="Returns picture data",
      *      @OA\Response(
@@ -82,7 +82,7 @@ class PictureController extends Controller
      * @OA\Get(
      *      path="/picture/{id}",
      *      operationId="getPictureById",
-     *      tags={"Picture"},
+     *      tags={"Изображение [ПОЗЖЕ]"},
      *      summary="Get picture information",
      *      description="Returns picture data",
      *      @OA\Parameter(
@@ -132,7 +132,7 @@ class PictureController extends Controller
      * @OA\Put(
      *      path="/picture/{id}",
      *      operationId="updatePicture",
-     *      tags={"Picture"},
+     *      tags={"Изображение [ПОЗЖЕ]"},
      *      summary="Update existing picture",
      *      description="Returns updated picture data",
      *      @OA\Parameter(
@@ -179,7 +179,7 @@ class PictureController extends Controller
      * @OA\Delete(
      *      path="/picture/{id}",
      *      operationId="deletePicture",
-     *      tags={"Picture"},
+     *      tags={"Изображение [ПОЗЖЕ]"},
      *      summary="Delete existing picture",
      *      description="Deletes a record and returns no content",
      *      @OA\Parameter(
