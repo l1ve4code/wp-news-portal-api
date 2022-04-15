@@ -315,8 +315,8 @@
                 "tags": [
                     "Группы"
                 ],
-                "summary": "Get list of groups",
-                "description": "Returns list of groups",
+                "summary": "Получить список групп",
+                "description": "Возвращает список групп",
                 "operationId": "getGroupsList",
                 "responses": {
                     "200": {
@@ -334,8 +334,8 @@
                 "tags": [
                     "Группы"
                 ],
-                "summary": "Store new group",
-                "description": "Returns group data",
+                "summary": "Создание новой группы",
+                "description": "Возвращает созданную группу",
                 "operationId": "storeGroups",
                 "responses": {
                     "201": {
@@ -358,8 +358,8 @@
                 "tags": [
                     "Группы"
                 ],
-                "summary": "Get groups information",
-                "description": "Returns group data",
+                "summary": "Получить информацию о группе",
+                "description": "Возвращает информацию о группе",
                 "operationId": "getGroupsById",
                 "parameters": [
                     {
@@ -391,8 +391,8 @@
                 "tags": [
                     "Группы"
                 ],
-                "summary": "Update existing group",
-                "description": "Returns updated group data",
+                "summary": "Обновление существующей группы",
+                "description": "Возвращает обновленную группу",
                 "operationId": "updateGroup",
                 "parameters": [
                     {
@@ -427,8 +427,8 @@
                 "tags": [
                     "Группы"
                 ],
-                "summary": "Delete existing group",
-                "description": "Deletes a record and returns no content",
+                "summary": "Удаление существующей группы",
+                "description": "Удаляет группы, если она существует",
                 "operationId": "deleteGroup",
                 "parameters": [
                     {
@@ -453,6 +453,41 @@
                     },
                     "404": {
                         "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/groups/category/{id}": {
+            "get": {
+                "tags": [
+                    "Группы"
+                ],
+                "summary": "Получение групп по id категории",
+                "description": "Возвращает информацию о группах по id категории",
+                "operationId": "getGroupsByCategoryID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Category id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
                     }
                 }
             }

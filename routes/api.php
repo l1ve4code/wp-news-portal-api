@@ -49,6 +49,7 @@ Route::delete("/comment/{id}", [CommentController::class, "destroy"]);
 Route::get("/groups", [GroupsController::class, "index"]);
 Route::post("/groups", [GroupsController::class, "store"]);
 Route::get("/groups/{id}", [GroupsController::class, "show"]);
+Route::get("/groups/category/{id}", [GroupsController::class, "show_groups_by_category"]);
 Route::put("/groups/{id}", [GroupsController::class, "update"]);
 Route::delete("/groups/{id}", [GroupsController::class, "destroy"]);
 

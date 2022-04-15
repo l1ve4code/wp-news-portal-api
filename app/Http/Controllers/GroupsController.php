@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\groups;
+use App\Models\post;
 use Illuminate\Http\Request;
 
 class GroupsController extends Controller
@@ -13,8 +14,8 @@ class GroupsController extends Controller
      *      path="/groups",
      *      operationId="getGroupsList",
      *      tags={"Группы"},
-     *      summary="Get list of groups",
-     *      description="Returns list of groups",
+     *      summary="Получить список групп",
+     *      description="Возвращает список групп",
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
@@ -31,17 +32,7 @@ class GroupsController extends Controller
      */
     public function index()
     {
-        return groups::all();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json(groups::all());
     }
 
     /**
@@ -49,8 +40,8 @@ class GroupsController extends Controller
      *      path="/groups",
      *      operationId="storeGroups",
      *      tags={"Группы"},
-     *      summary="Store new group",
-     *      description="Returns group data",
+     *      summary="Создание новой группы",
+     *      description="Возвращает созданную группу",
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
@@ -80,7 +71,11 @@ class GroupsController extends Controller
             "admin_id" => "required",
         ]);
 
-        return groups::create($request->all());
+        $created = groups::create($request->all());
+
+        if(!$created) return response()->json(["Error" => "Bad request"], 500);
+
+        return response()->json($created);
     }
 
     /**
@@ -88,8 +83,8 @@ class GroupsController extends Controller
      *      path="/groups/{id}",
      *      operationId="getGroupsById",
      *      tags={"Группы"},
-     *      summary="Get groups information",
-     *      description="Returns group data",
+     *      summary="Получить информацию о группе",
+     *      description="Возвращает информацию о группе",
      *      @OA\Parameter(
      *          name="id",
      *          description="Groups id",
@@ -119,18 +114,54 @@ class GroupsController extends Controller
      */
     public function show($id)
     {
-        return groups::find($id);
+        $group = groups::find($id);
+
+        if (!$group) return response()->json(["Error" => "Group doesn't exists"], 400);
+
+        $posts = post::where("group_id","=", $id)->orderBy("id", "desc")->get();
+
+        return response()->json(["group" => $group, "posts" => $posts]);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *      path="/groups/category/{id}",
+     *      operationId="getGroupsByCategoryID",
+     *      tags={"Группы"},
+     *      summary="Получение групп по id категории",
+     *      description="Возвращает информацию о группах по id категории",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Category id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
      */
-    public function edit($id)
-    {
-        //
+    public function show_groups_by_category($id){
+
+        $groups = groups::where("category_id", "=", $id)->get();
+
+        return response()->json(["group" => $groups]);
     }
 
     /**
@@ -138,8 +169,8 @@ class GroupsController extends Controller
      *      path="/groups/{id}",
      *      operationId="updateGroup",
      *      tags={"Группы"},
-     *      summary="Update existing group",
-     *      description="Returns updated group data",
+     *      summary="Обновление существующей группы",
+     *      description="Возвращает обновленную группу",
      *      @OA\Parameter(
      *          name="id",
      *          description="Group id",
@@ -177,7 +208,7 @@ class GroupsController extends Controller
 
         $group->update($request->all());
 
-        return $group;
+        return response()->json($group);
     }
 
     /**
@@ -185,8 +216,8 @@ class GroupsController extends Controller
      *      path="/groups/{id}",
      *      operationId="deleteGroup",
      *      tags={"Группы"},
-     *      summary="Delete existing group",
-     *      description="Deletes a record and returns no content",
+     *      summary="Удаление существующей группы",
+     *      description="Удаляет группы, если она существует",
      *      @OA\Parameter(
      *          name="id",
      *          description="Group id",
@@ -216,6 +247,7 @@ class GroupsController extends Controller
      */
     public function destroy($id)
     {
-        groups::destroy($id);
+        $deleted = groups::destroy($id);
+        return response()->json($deleted);
     }
 }
