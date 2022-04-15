@@ -199,6 +199,7 @@ class CategoryController extends Controller
         if (!$deleted) return response()->json(["error" => "Bad Request"], 400);
 
         return response()->json($deleted, 200);
+        
     }
 
     /**

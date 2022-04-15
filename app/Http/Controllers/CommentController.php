@@ -61,7 +61,7 @@ class CommentController extends Controller
 
         if(!$created) return response()->json(["error" => "Bad request"], 400);
 
-        return response()->json($created);
+        return response()->json($created, 201);
     }
 
     /**
@@ -80,16 +80,12 @@ class CommentController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=201,
-     *          description="Successful operation",
+     *          response=200,
+     *          description="OK",
      *       ),
      *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
+     *          response=404,
+     *          description="Not Found"
      *      )
      * )
      */
@@ -97,9 +93,9 @@ class CommentController extends Controller
     {
         $comments = comment::where("post_id", "=", $id)->orderBy("id", "desc")->get();
 
-        if(isEmpty($comments)) return response()->json(["error" => "Comments doesn't exists"], 400);
+        if(isEmpty($comments)) return response()->json(["error" => "Comments doesn't exists"], 404);
 
-        return response()->json($comments);
+        return response()->json($comments, 200);
 
     }
 
@@ -119,8 +115,8 @@ class CommentController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=201,
-     *          description="Successful operation",
+     *          response=200,
+     *          description="OK",
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -135,6 +131,12 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        comment::destroy($id);
+        if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
+
+        $deleted = comment::destroy($id);
+
+        if (!$deleted) return response()->json(["error" => "Bad Request"], 400);
+
+        return response()->json($deleted, 200);
     }
 }
