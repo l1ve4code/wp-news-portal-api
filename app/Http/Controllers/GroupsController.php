@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\groups;
 use App\Models\post;
 use Illuminate\Http\Request;
+use function PHPUnit\Framework\isEmpty;
 
 class GroupsController extends Controller
 {
@@ -73,7 +74,7 @@ class GroupsController extends Controller
 
         $created = groups::create($request->all());
 
-        if(!$created) return response()->json(["Error" => "Bad request"], 500);
+        if(isEmpty($created)) return response()->json(["Error" => "Bad request"], 500);
 
         return response()->json($created);
     }
@@ -116,7 +117,7 @@ class GroupsController extends Controller
     {
         $group = groups::find($id);
 
-        if (!$group) return response()->json(["Error" => "Group doesn't exists"], 400);
+        if (isEmpty($group)) return response()->json(["Error" => "Group doesn't exists"], 400);
 
         $posts = post::where("group_id","=", $id)->orderBy("id", "desc")->get();
 

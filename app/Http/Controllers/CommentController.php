@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\comment;
 use Illuminate\Http\Request;
+use function PHPUnit\Framework\isEmpty;
 
 class CommentController extends Controller
 {
@@ -12,8 +13,8 @@ class CommentController extends Controller
      *      path="/comment",
      *      operationId="getCommentList",
      *      tags={"Комментарии"},
-     *      summary="Get list of comments",
-     *      description="Returns list of comments",
+     *      summary="Получение списка комментариев",
+     *      description="Возвращает список комментариев",
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
@@ -30,17 +31,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        return comment::all();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json(comment::all());
     }
 
     /**
@@ -48,8 +39,8 @@ class CommentController extends Controller
      *      path="/comment",
      *      operationId="storeComment",
      *      tags={"Комментарии"},
-     *      summary="Store new comment",
-     *      description="Returns comment data",
+     *      summary="Создание нового комментария",
+     *      description="Возвращает данные комментария",
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
@@ -77,7 +68,11 @@ class CommentController extends Controller
             "date" => "required",
         ]);
 
-        return comment::create($request->all());
+        $created = comment::create($request->all());
+
+        if(!$created) return response()->json(["Error" => "Bad request"], 500);
+
+        return response()->json($created);
     }
 
     /**
@@ -85,11 +80,11 @@ class CommentController extends Controller
      *      path="/comment/{id}",
      *      operationId="getCommentById",
      *      tags={"Комментарии"},
-     *      summary="Get comment information",
-     *      description="Returns comment data",
+     *      summary="Получение комментария по id поста",
+     *      description="Возвращает данные о комментарии",
      *      @OA\Parameter(
      *          name="id",
-     *          description="Comment id",
+     *          description="Post id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -116,65 +111,12 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        return comment::find($id);
-    }
+        $comments = comment::where("post_id", "=", $id)->orderBy("id", "desc")->get();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        if(isEmpty($comments)) return response()->json(["error" => "Comments doesn't exists"], 400);
 
-    /**
-     * @OA\Put(
-     *      path="/comment/{id}",
-     *      operationId="updateComment",
-     *      tags={"Комментарии"},
-     *      summary="Update existing comment",
-     *      description="Returns updated comment data",
-     *      @OA\Parameter(
-     *          name="id",
-     *          description="Comment id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=202,
-     *          description="Successful operation",
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Resource Not Found"
-     *      )
-     * )
-     */
-    public function update(Request $request, $id)
-    {
-        $comment = comment::find($id);
+        return response()->json($comments);
 
-        $comment->update($request->all());
-
-        return $comment;
     }
 
     /**
@@ -182,8 +124,8 @@ class CommentController extends Controller
      *      path="/comment/{id}",
      *      operationId="deleteComment",
      *      tags={"Комментарии"},
-     *      summary="Delete existing comment",
-     *      description="Deletes a record and returns no content",
+     *      summary="Удаляет существующий комментарий",
+     *      description="Возвращает удаленный комментарий",
      *      @OA\Parameter(
      *          name="id",
      *          description="Comment id",

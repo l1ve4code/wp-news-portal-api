@@ -168,8 +168,8 @@
                 "tags": [
                     "Комментарии"
                 ],
-                "summary": "Get list of comments",
-                "description": "Returns list of comments",
+                "summary": "Получение списка комментариев",
+                "description": "Возвращает список комментариев",
                 "operationId": "getCommentList",
                 "responses": {
                     "200": {
@@ -187,8 +187,8 @@
                 "tags": [
                     "Комментарии"
                 ],
-                "summary": "Store new comment",
-                "description": "Returns comment data",
+                "summary": "Создание нового комментария",
+                "description": "Возвращает данные комментария",
                 "operationId": "storeComment",
                 "responses": {
                     "201": {
@@ -211,14 +211,14 @@
                 "tags": [
                     "Комментарии"
                 ],
-                "summary": "Get comment information",
-                "description": "Returns comment data",
+                "summary": "Получение комментария по id поста",
+                "description": "Возвращает данные о комментарии",
                 "operationId": "getCommentById",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Comment id",
+                        "description": "Post id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -240,48 +240,12 @@
                     }
                 }
             },
-            "put": {
-                "tags": [
-                    "Комментарии"
-                ],
-                "summary": "Update existing comment",
-                "description": "Returns updated comment data",
-                "operationId": "updateComment",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Comment id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "202": {
-                        "description": "Successful operation"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            },
             "delete": {
                 "tags": [
                     "Комментарии"
                 ],
-                "summary": "Delete existing comment",
-                "description": "Deletes a record and returns no content",
+                "summary": "Удаляет существующий комментарий",
+                "description": "Возвращает удаленный комментарий",
                 "operationId": "deleteComment",
                 "parameters": [
                     {
