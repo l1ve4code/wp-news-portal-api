@@ -58,7 +58,50 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "format": "email",
+                                                    "example": "Ivan Ivanov"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "format": "email",
+                                                    "example": "example@mail.com"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "email",
+                                                    "example": "2022-04-15T17:47:53.000000Z"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "email",
+                                                    "example": "2022-04-15T17:47:53.000000Z"
+                                                },
+                                                "id": {
+                                                    "type": "number",
+                                                    "format": "email",
+                                                    "example": "5"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "0wAPkwuwz8NffdDZzlqlKcV8w6SFOiVh6TdT7SVF"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -103,7 +146,50 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "number",
+                                                    "format": "email",
+                                                    "example": "5"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "format": "email",
+                                                    "example": "Ivan Ivanov"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "format": "email",
+                                                    "example": "example@mail.com"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "email",
+                                                    "example": "2022-04-15T17:47:53.000000Z"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "email",
+                                                    "example": "2022-04-15T17:47:53.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "0wAPkwuwz8NffdDZzlqlKcV8w6SFOiVh6TdT7SVF"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "400": {
                         "description": "Bad Request"

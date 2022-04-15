@@ -30,6 +30,16 @@ class AuthController extends Controller
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
+     *          @OA\JsonContent(
+     *                  @OA\Property(property="user", type="object",
+     *                      @OA\Property(property="name", type="string", format="email", example="Ivan Ivanov"),
+     *                      @OA\Property(property="email", type="string", format="email", example="example@mail.com"),
+     *                      @OA\Property(property="updated_at", type="string", format="email", example="2022-04-15T17:47:53.000000Z"),
+     *                      @OA\Property(property="created_at", type="string", format="email", example="2022-04-15T17:47:53.000000Z"),
+     *                      @OA\Property(property="id", type="number", format="email", example="5"),
+     *                  ),
+     *                  @OA\Property(property="token", type="string", example="0wAPkwuwz8NffdDZzlqlKcV8w6SFOiVh6TdT7SVF"),
+     *              ),
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -81,6 +91,16 @@ class AuthController extends Controller
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
+     *          @OA\JsonContent(
+     *                  @OA\Property(property="user", type="object",
+     *                      @OA\Property(property="id", type="number", format="email", example="5"),
+     *                      @OA\Property(property="name", type="string", format="email", example="Ivan Ivanov"),
+     *                      @OA\Property(property="email", type="string", format="email", example="example@mail.com"),
+     *                      @OA\Property(property="updated_at", type="string", format="email", example="2022-04-15T17:47:53.000000Z"),
+     *                      @OA\Property(property="created_at", type="string", format="email", example="2022-04-15T17:47:53.000000Z"),
+     *                  ),
+     *                  @OA\Property(property="token", type="string", example="0wAPkwuwz8NffdDZzlqlKcV8w6SFOiVh6TdT7SVF"),
+     *              ),
      *       ),
      *      @OA\Response(
      *          response=400,
