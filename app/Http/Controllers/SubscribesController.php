@@ -30,8 +30,8 @@ class SubscribesController extends Controller
      *          description="Successful operation",
      *       ),
      *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
+     *          response=404,
+     *          description="Not found"
      *      ),
      *      @OA\Response(
      *          response=401,
@@ -42,13 +42,16 @@ class SubscribesController extends Controller
      */
     public function store_group($id)
     {
+
+        if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
+
         $group = groups::find($id);
 
-        if(isEmpty($group)) return response()->json(["error" => "Group doesn't exists"], 500);
+        if(isEmpty($group)) return response()->json(["error" => "Group doesn't exists"], 404);
 
         $created = subscribes::create(["group_id" => $id, auth('sanctum')->user()->id]);
 
-        return response()->json($created);
+        return response()->json($created, 201);
     }
 
     /**
@@ -67,12 +70,12 @@ class SubscribesController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=201,
-     *          description="Successful operation",
+     *          response=200,
+     *          description="OK",
      *       ),
      *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
+     *          response=404,
+     *          description="Not found"
      *      ),
      *      @OA\Response(
      *          response=401,
@@ -83,7 +86,14 @@ class SubscribesController extends Controller
      */
     public function show($id)
     {
-        return subscribes::find($id);
+
+        if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
+
+        $find = subscribes::find($id);
+
+        if (!$find) return response()->json(["error" => "Not found"], 404);
+
+        return response()->json($find, 200);
     }
 
     /**
@@ -102,8 +112,8 @@ class SubscribesController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=201,
-     *          description="Successful operation",
+     *          response=200,
+     *          description="OK",
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -118,7 +128,13 @@ class SubscribesController extends Controller
      */
     public function destroy($id)
     {
+
+        if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
+
         $deleted = subscribes::destroy($id);
-        return response()->json($deleted);
+
+        if (!$deleted) return response()->json(["error" => "Bad Request"], 400);
+
+        return response()->json($deleted, 200);
     }
 }
