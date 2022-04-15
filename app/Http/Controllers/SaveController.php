@@ -15,13 +15,9 @@ class SaveController extends Controller
      *      tags={"Сохраненные группы"},
      *      summary="Получение списка сохраненных групп пользователя",
      *      @OA\Response(
-     *          response=201,
-     *          description="Successful operation",
+     *          response=200,
+     *          description="OK",
      *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
      *      @OA\Response(
      *          response=401,
      *          description="Unauthenticated",
@@ -31,7 +27,9 @@ class SaveController extends Controller
      */
     public function index()
     {
-        return save::all();
+        if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
+
+        return response()->json(save::all(), 200);
     }
 
     /**
@@ -73,12 +71,14 @@ class SaveController extends Controller
             "post_id" => "required",
         ]);
 
-        $save = save::create([
+        $created = save::create([
             "user_id" => $user_id,
             "post_id" => $fields["post_id"],
         ]);
 
-        return save::create($request->all());
+        if (!$created) return response()->json(["error" => "Bad Request"], 400);
+
+        return response()->json($created, 201);
     }
 
     /**
@@ -97,8 +97,8 @@ class SaveController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=201,
-     *          description="Successful operation",
+     *          response=200,
+     *          description="OK",
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -113,6 +113,12 @@ class SaveController extends Controller
      */
     public function destroy($id)
     {
-        save::destroy($id);
+        if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
+
+        $deleted = save::destroy($id);
+
+        if (!$deleted) return response()->json(["error" => "Bad Request"], 400);
+
+        return response()->json($deleted, 200);
     }
 }
