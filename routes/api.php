@@ -78,10 +78,8 @@ Route::put("/save/{id}", [SaveController::class, "update"]);
 Route::delete("/save/{id}", [SaveController::class, "destroy"]);
 
 // SUBSCRIBES
-Route::get("/subscribes", [SubscribesController::class, "index"]);
-Route::post("/subscribes", [SubscribesController::class, "store"]);
+Route::post("/subscribes/group/{id}", [SubscribesController::class, "store_group"]);
 Route::get("/subscribes/{id}", [SubscribesController::class, "show"]);
-Route::put("/subscribes/{id}", [SubscribesController::class, "update"]);
 Route::delete("/subscribes/{id}", [SubscribesController::class, "destroy"]);
 
 

@@ -74,7 +74,7 @@ class GroupsController extends Controller
 
         $created = groups::create($request->all());
 
-        if(isEmpty($created)) return response()->json(["Error" => "Bad request"], 500);
+        if(isEmpty($created)) return response()->json(["error" => "Bad request"], 500);
 
         return response()->json($created);
     }

@@ -2,54 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\groups;
 use App\Models\subscribes;
 use Illuminate\Http\Request;
+use function PHPUnit\Framework\isEmpty;
 
 class SubscribesController extends Controller
 {
-    /**
-     * @OA\Get(
-     *      path="/subscribes",
-     *      operationId="getSubscribesList",
-     *      tags={"Подписки"},
-     *      summary="Get list of subscribes",
-     *      description="Returns list of subscribes",
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *       ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
-     *     )
-     */
-    public function index()
-    {
-        return subscribes::all();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * @OA\Post(
-     *      path="/subscribes",
-     *      operationId="storeSubscribes",
+     *      path="/subscribes/group/{id}",
+     *      operationId="storeSubscribesGroups",
      *      tags={"Подписки"},
-     *      summary="Store new subscribes",
-     *      description="Returns subscribes data",
+     *      summary="Подписка пользователя на группу",
+     *      description="Возвращает данные о подписке",
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
@@ -68,14 +35,15 @@ class SubscribesController extends Controller
      *      )
      * )
      */
-    public function store(Request $request)
+    public function store_group($id)
     {
-        $request->validate([
-            "user_id" => "required",
-            "group_id" => "required",
-        ]);
+        $group = groups::find($id);
 
-        return subscribes::create($request->all());
+        if(isEmpty($group)) return response()->json(["error" => "Group doesn't exists"], 500);
+
+        $created = subscribes::create(["group_id" => $id, auth('sanctum')->user()->id]);
+
+        return response()->json($created);
     }
 
     /**
@@ -83,8 +51,8 @@ class SubscribesController extends Controller
      *      path="/subscribes/{id}",
      *      operationId="getSubscribesById",
      *      tags={"Подписки"},
-     *      summary="Get subscribes information",
-     *      description="Returns subscribes data",
+     *      summary="Получение информации о подписке",
+     *      description="Возвращает информацию о подписке",
      *      @OA\Parameter(
      *          name="id",
      *          description="Subscribes id",
@@ -118,70 +86,12 @@ class SubscribesController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * @OA\Put(
-     *      path="/subscribes/{id}",
-     *      operationId="updateSubscribes",
-     *      tags={"Подписки"},
-     *      summary="Update existing subscribes",
-     *      description="Returns updated subscribes data",
-     *      @OA\Parameter(
-     *          name="id",
-     *          description="Subscribes id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=202,
-     *          description="Successful operation",
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Resource Not Found"
-     *      )
-     * )
-     */
-    public function update(Request $request, $id)
-    {
-        $subscribes = subscribes::find($id);
-
-        $subscribes->update($request->all());
-
-        return $subscribes;
-    }
-
-    /**
      * @OA\Delete(
      *      path="/subscribes/{id}",
      *      operationId="deleteSubscribes",
      *      tags={"Подписки"},
-     *      summary="Delete existing subscribes",
-     *      description="Deletes a record and returns no content",
+     *      summary="Удаление существующей подписки",
+     *      description="Удаление существующей подписки",
      *      @OA\Parameter(
      *          name="id",
      *          description="Subscribes id",
@@ -211,6 +121,7 @@ class SubscribesController extends Controller
      */
     public function destroy($id)
     {
-        subscribes::destroy($id);
+        $deleted = subscribes::destroy($id);
+        return response()->json($deleted);
     }
 }
