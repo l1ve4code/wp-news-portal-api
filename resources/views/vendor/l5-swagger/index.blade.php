@@ -46,6 +46,7 @@
             requestInterceptor: function(request) {
                 request.headers['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
                 request.headers["accept"] = "application/json";
+                request.headers["Access-Control-Allow-Origin"] = "*";
                 return request;
             },
 
