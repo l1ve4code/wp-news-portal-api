@@ -53,10 +53,7 @@ Route::put("/groups/{id}", [GroupsController::class, "update"]);
 Route::delete("/groups/{id}", [GroupsController::class, "destroy"]);
 
 // LIKES
-Route::get("/likes", [LikesController::class, "index"]);
 Route::post("/likes", [LikesController::class, "store"]);
-Route::get("/likes/{id}", [LikesController::class, "show"]);
-Route::put("/likes/{id}", [LikesController::class, "update"]);
 Route::delete("/likes/{id}", [LikesController::class, "destroy"]);
 
 // PICTURE
