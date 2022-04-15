@@ -15,7 +15,6 @@ class CommentController extends Controller
      *      operationId="storeComment",
      *      tags={"Комментарии"},
      *      summary="Создание нового комментария",
-     *      description="Возвращает данные комментария",
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
@@ -28,10 +27,7 @@ class CommentController extends Controller
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
+     *     security={{ "apiKey": {} }}
      * )
      */
     public function store(Request $request)
@@ -55,8 +51,7 @@ class CommentController extends Controller
      *      path="/comment/{id}",
      *      operationId="getCommentById",
      *      tags={"Комментарии"},
-     *      summary="Получение комментария по id поста",
-     *      description="Возвращает данные о комментарии",
+     *      summary="Получение комментария по ID поста",
      *      @OA\Parameter(
      *          name="id",
      *          description="Post id",
@@ -67,7 +62,7 @@ class CommentController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=200,
+     *          response=201,
      *          description="Successful operation",
      *       ),
      *      @OA\Response(
@@ -77,10 +72,6 @@ class CommentController extends Controller
      *      @OA\Response(
      *          response=401,
      *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
      *      )
      * )
      */
@@ -99,8 +90,7 @@ class CommentController extends Controller
      *      path="/comment/{id}",
      *      operationId="deleteComment",
      *      tags={"Комментарии"},
-     *      summary="Удаляет существующий комментарий",
-     *      description="Возвращает удаленный комментарий",
+     *      summary="Удаление существующего комментария",
      *      @OA\Parameter(
      *          name="id",
      *          description="Comment id",
@@ -111,21 +101,18 @@ class CommentController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=204,
+     *          response=201,
      *          description="Successful operation",
      *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
      *      @OA\Response(
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Resource Not Found"
-     *      )
+     *     security={{ "apiKey": {} }}
      * )
      */
     public function destroy($id)

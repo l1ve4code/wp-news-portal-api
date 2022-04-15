@@ -13,8 +13,7 @@ class PostController extends Controller
      *      path="/post",
      *      operationId="storePost",
      *      tags={"Посты"},
-     *      summary="Store new post",
-     *      description="Returns post data",
+     *      summary="Создать новый пост",
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
@@ -27,10 +26,7 @@ class PostController extends Controller
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
+     *     security={{ "apiKey": {} }}
      * )
      */
     public function store(Request $request)
@@ -55,8 +51,7 @@ class PostController extends Controller
      *      path="/post/{id}",
      *      operationId="getPostById",
      *      tags={"Посты"},
-     *      summary="Get post information",
-     *      description="Returns post data",
+     *      summary="Получение поста по ID",
      *      @OA\Parameter(
      *          name="id",
      *          description="Post id",
@@ -67,7 +62,7 @@ class PostController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=200,
+     *          response=201,
      *          description="Successful operation",
      *       ),
      *      @OA\Response(
@@ -77,10 +72,6 @@ class PostController extends Controller
      *      @OA\Response(
      *          response=401,
      *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
      *      )
      * )
      */
@@ -90,23 +81,11 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * @OA\Put(
      *      path="/post/{id}",
      *      operationId="updatePost",
      *      tags={"Посты"},
-     *      summary="Update existing post",
-     *      description="Returns updated post data",
+     *      summary="Обновление существующего поста",
      *      @OA\Parameter(
      *          name="id",
      *          description="Post id",
@@ -117,7 +96,7 @@ class PostController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=202,
+     *          response=201,
      *          description="Successful operation",
      *       ),
      *      @OA\Response(
@@ -128,14 +107,7 @@ class PostController extends Controller
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Resource Not Found"
-     *      )
+     *     security={{ "apiKey": {} }}
      * )
      */
     public function update(Request $request, $id)
@@ -152,8 +124,7 @@ class PostController extends Controller
      *      path="/post/{id}",
      *      operationId="deletePost",
      *      tags={"Посты"},
-     *      summary="Delete existing post",
-     *      description="Deletes a record and returns no content",
+     *      summary="Удаление существующего поста",
      *      @OA\Parameter(
      *          name="id",
      *          description="Post id",
@@ -164,21 +135,18 @@ class PostController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=204,
+     *          response=201,
      *          description="Successful operation",
      *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
      *      @OA\Response(
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Resource Not Found"
-     *      )
+     *     security={{ "apiKey": {} }}
      * )
      */
     public function destroy($id)

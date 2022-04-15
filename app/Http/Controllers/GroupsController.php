@@ -15,19 +15,18 @@ class GroupsController extends Controller
      *      path="/groups",
      *      operationId="getGroupsList",
      *      tags={"Группы"},
-     *      summary="Получить список групп",
-     *      description="Возвращает список групп",
+     *      summary="Получение списка групп",
      *      @OA\Response(
-     *          response=200,
+     *          response=201,
      *          description="Successful operation",
      *       ),
      *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
+     *          response=400,
+     *          description="Bad Request"
      *      ),
      *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
+     *          response=401,
+     *          description="Unauthenticated",
      *      )
      *     )
      */
@@ -42,7 +41,6 @@ class GroupsController extends Controller
      *      operationId="storeGroups",
      *      tags={"Группы"},
      *      summary="Создание новой группы",
-     *      description="Возвращает созданную группу",
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
@@ -55,10 +53,7 @@ class GroupsController extends Controller
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
+     *     security={{ "apiKey": {} }}
      * )
      */
     public function store(Request $request)
@@ -74,7 +69,7 @@ class GroupsController extends Controller
 
         $created = groups::create($request->all());
 
-        if(isEmpty($created)) return response()->json(["error" => "Bad request"], 500);
+        if(isEmpty($created)) return response()->json(["error" => "Bad request"], 400);
 
         return response()->json($created);
     }
@@ -84,8 +79,7 @@ class GroupsController extends Controller
      *      path="/groups/{id}",
      *      operationId="getGroupsById",
      *      tags={"Группы"},
-     *      summary="Получить информацию о группе",
-     *      description="Возвращает информацию о группе",
+     *      summary="Получение информацию о группе по ID",
      *      @OA\Parameter(
      *          name="id",
      *          description="Groups id",
@@ -96,7 +90,7 @@ class GroupsController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=200,
+     *          response=201,
      *          description="Successful operation",
      *       ),
      *      @OA\Response(
@@ -106,10 +100,6 @@ class GroupsController extends Controller
      *      @OA\Response(
      *          response=401,
      *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
      *      )
      * )
      */
@@ -129,8 +119,7 @@ class GroupsController extends Controller
      *      path="/groups/category/{id}",
      *      operationId="getGroupsByCategoryID",
      *      tags={"Группы"},
-     *      summary="Получение групп по id категории",
-     *      description="Возвращает информацию о группах по id категории",
+     *      summary="Получение групп по ID категории",
      *      @OA\Parameter(
      *          name="id",
      *          description="Category id",
@@ -141,7 +130,7 @@ class GroupsController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=200,
+     *          response=201,
      *          description="Successful operation",
      *       ),
      *      @OA\Response(
@@ -151,10 +140,6 @@ class GroupsController extends Controller
      *      @OA\Response(
      *          response=401,
      *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
      *      )
      * )
      */
@@ -171,7 +156,6 @@ class GroupsController extends Controller
      *      operationId="updateGroup",
      *      tags={"Группы"},
      *      summary="Обновление существующей группы",
-     *      description="Возвращает обновленную группу",
      *      @OA\Parameter(
      *          name="id",
      *          description="Group id",
@@ -182,7 +166,7 @@ class GroupsController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=202,
+     *          response=201,
      *          description="Successful operation",
      *       ),
      *      @OA\Response(
@@ -193,14 +177,7 @@ class GroupsController extends Controller
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Resource Not Found"
-     *      )
+     *     security={{ "apiKey": {} }}
      * )
      */
     public function update(Request $request, $id)
@@ -218,7 +195,6 @@ class GroupsController extends Controller
      *      operationId="deleteGroup",
      *      tags={"Группы"},
      *      summary="Удаление существующей группы",
-     *      description="Удаляет группы, если она существует",
      *      @OA\Parameter(
      *          name="id",
      *          description="Group id",
@@ -229,21 +205,18 @@ class GroupsController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=204,
+     *          response=201,
      *          description="Successful operation",
      *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
      *      @OA\Response(
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Resource Not Found"
-     *      )
+     *     security={{ "apiKey": {} }}
      * )
      */
     public function destroy($id)

@@ -14,19 +14,18 @@ class CategoryController extends Controller
      *      path="/category",
      *      operationId="getCategoryList",
      *      tags={"Категории"},
-     *      summary="Get list of categories",
-     *      description="Returns list of categories",
+     *      summary="Получение списка категорий",
      *      @OA\Response(
-     *          response=200,
+     *          response=201,
      *          description="Successful operation",
      *       ),
      *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
+     *          response=400,
+     *          description="Bad Request"
      *      ),
      *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
+     *          response=401,
+     *          description="Unauthenticated",
      *      )
      *     )
      */
@@ -36,22 +35,11 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-    }
-
-    /**
      * @OA\Post(
      *      path="/category",
      *      operationId="storeCategory",
      *      tags={"Категории"},
-     *      summary="Store new category",
-     *      description="Returns category data",
+     *      summary="Создание новой категории",
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
@@ -64,10 +52,7 @@ class CategoryController extends Controller
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
+     *     security={{ "apiKey": {} }}
      * )
      */
     public function store(Request $request)
@@ -84,8 +69,7 @@ class CategoryController extends Controller
      *      path="/category/{id}",
      *      operationId="getCategoryById",
      *      tags={"Категории"},
-     *      summary="Get category information",
-     *      description="Returns category data",
+     *      summary="Получение категории по ID",
      *      @OA\Parameter(
      *          name="id",
      *          description="Category id",
@@ -96,7 +80,7 @@ class CategoryController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=200,
+     *          response=201,
      *          description="Successful operation",
      *       ),
      *      @OA\Response(
@@ -106,10 +90,6 @@ class CategoryController extends Controller
      *      @OA\Response(
      *          response=401,
      *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
      *      )
      * )
      */
@@ -119,23 +99,11 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * @OA\Put(
      *      path="/category/{id}",
      *      operationId="updateCategory",
      *      tags={"Категории"},
-     *      summary="Update existing category",
-     *      description="Returns updated category data",
+     *      summary="Обновление существующей категории",
      *      @OA\Parameter(
      *          name="id",
      *          description="Category id",
@@ -146,7 +114,7 @@ class CategoryController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=202,
+     *          response=201,
      *          description="Successful operation",
      *       ),
      *      @OA\Response(
@@ -157,14 +125,7 @@ class CategoryController extends Controller
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Resource Not Found"
-     *      )
+     *     security={{ "apiKey": {} }}
      * )
      */
     public function update(Request $request, $id)
@@ -181,8 +142,7 @@ class CategoryController extends Controller
      *      path="/category/{id}",
      *      operationId="deleteCategory",
      *      tags={"Категории"},
-     *      summary="Delete existing category",
-     *      description="Deletes a record and returns no content",
+     *      summary="Удаление существующей категории",
      *      @OA\Parameter(
      *          name="id",
      *          description="Category id",
@@ -193,21 +153,18 @@ class CategoryController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=204,
+     *          response=201,
      *          description="Successful operation",
      *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
      *      @OA\Response(
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Resource Not Found"
-     *      )
+     *     security={{ "apiKey": {} }}
      * )
      */
     public function destroy($id)

@@ -4,8 +4,8 @@
         "title": "API - Новостного портала",
         "description": "Участники: Веденин Иван, Тишкина Алина, Федор Пережогин, Александр Сергеев",
         "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
         },
         "version": "1.0.0"
     },
@@ -16,23 +16,140 @@
         }
     ],
     "paths": {
+        "/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register new user",
+                "description": "Returns registered user",
+                "operationId": "register",
+                "requestBody": {
+                    "description": "Register credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Ivan Ivanov"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "example@mail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "1sd@a32jNSFM"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login user",
+                "description": "Returns authorized user",
+                "operationId": "login",
+                "requestBody": {
+                    "description": "Login credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "example@mail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "1sd@a32jNSFM"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout",
+                "description": "Returns nothing",
+                "operationId": "logout",
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
+            }
+        },
         "/category": {
             "get": {
                 "tags": [
                     "Категории"
                 ],
-                "summary": "Get list of categories",
-                "description": "Returns list of categories",
+                "summary": "Получение списка категорий",
                 "operationId": "getCategoryList",
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
                     }
                 }
             },
@@ -40,8 +157,7 @@
                 "tags": [
                     "Категории"
                 ],
-                "summary": "Store new category",
-                "description": "Returns category data",
+                "summary": "Создание новой категории",
                 "operationId": "storeCategory",
                 "responses": {
                     "201": {
@@ -52,11 +168,13 @@
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
             }
         },
         "/category/{id}": {
@@ -64,8 +182,7 @@
                 "tags": [
                     "Категории"
                 ],
-                "summary": "Get category information",
-                "description": "Returns category data",
+                "summary": "Получение категории по ID",
                 "operationId": "getCategoryById",
                 "parameters": [
                     {
@@ -79,7 +196,7 @@
                     }
                 ],
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "Successful operation"
                     },
                     "400": {
@@ -87,9 +204,6 @@
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
                     }
                 }
             },
@@ -97,8 +211,7 @@
                 "tags": [
                     "Категории"
                 ],
-                "summary": "Update existing category",
-                "description": "Returns updated category data",
+                "summary": "Обновление существующей категории",
                 "operationId": "updateCategory",
                 "parameters": [
                     {
@@ -112,7 +225,7 @@
                     }
                 ],
                 "responses": {
-                    "202": {
+                    "201": {
                         "description": "Successful operation"
                     },
                     "400": {
@@ -120,21 +233,19 @@
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
                     "Категории"
                 ],
-                "summary": "Delete existing category",
-                "description": "Deletes a record and returns no content",
+                "summary": "Удаление существующей категории",
                 "operationId": "deleteCategory",
                 "parameters": [
                     {
@@ -148,19 +259,21 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
             }
         },
         "/comment": {
@@ -169,7 +282,6 @@
                     "Комментарии"
                 ],
                 "summary": "Создание нового комментария",
-                "description": "Возвращает данные комментария",
                 "operationId": "storeComment",
                 "responses": {
                     "201": {
@@ -180,11 +292,13 @@
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
             }
         },
         "/comment/{id}": {
@@ -192,8 +306,7 @@
                 "tags": [
                     "Комментарии"
                 ],
-                "summary": "Получение комментария по id поста",
-                "description": "Возвращает данные о комментарии",
+                "summary": "Получение комментария по ID поста",
                 "operationId": "getCommentById",
                 "parameters": [
                     {
@@ -207,7 +320,7 @@
                     }
                 ],
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "Successful operation"
                     },
                     "400": {
@@ -215,9 +328,6 @@
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
                     }
                 }
             },
@@ -225,8 +335,7 @@
                 "tags": [
                     "Комментарии"
                 ],
-                "summary": "Удаляет существующий комментарий",
-                "description": "Возвращает удаленный комментарий",
+                "summary": "Удаление существующего комментария",
                 "operationId": "deleteComment",
                 "parameters": [
                     {
@@ -240,19 +349,21 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
             }
         },
         "/groups": {
@@ -260,18 +371,17 @@
                 "tags": [
                     "Группы"
                 ],
-                "summary": "Получить список групп",
-                "description": "Возвращает список групп",
+                "summary": "Получение списка групп",
                 "operationId": "getGroupsList",
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
                     }
                 }
             },
@@ -280,7 +390,6 @@
                     "Группы"
                 ],
                 "summary": "Создание новой группы",
-                "description": "Возвращает созданную группу",
                 "operationId": "storeGroups",
                 "responses": {
                     "201": {
@@ -291,11 +400,13 @@
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
             }
         },
         "/groups/{id}": {
@@ -303,8 +414,7 @@
                 "tags": [
                     "Группы"
                 ],
-                "summary": "Получить информацию о группе",
-                "description": "Возвращает информацию о группе",
+                "summary": "Получение информацию о группе по ID",
                 "operationId": "getGroupsById",
                 "parameters": [
                     {
@@ -318,7 +428,7 @@
                     }
                 ],
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "Successful operation"
                     },
                     "400": {
@@ -326,9 +436,6 @@
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
                     }
                 }
             },
@@ -337,7 +444,6 @@
                     "Группы"
                 ],
                 "summary": "Обновление существующей группы",
-                "description": "Возвращает обновленную группу",
                 "operationId": "updateGroup",
                 "parameters": [
                     {
@@ -351,7 +457,7 @@
                     }
                 ],
                 "responses": {
-                    "202": {
+                    "201": {
                         "description": "Successful operation"
                     },
                     "400": {
@@ -359,21 +465,19 @@
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
                     "Группы"
                 ],
                 "summary": "Удаление существующей группы",
-                "description": "Удаляет группы, если она существует",
                 "operationId": "deleteGroup",
                 "parameters": [
                     {
@@ -387,19 +491,21 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
             }
         },
         "/groups/category/{id}": {
@@ -407,8 +513,7 @@
                 "tags": [
                     "Группы"
                 ],
-                "summary": "Получение групп по id категории",
-                "description": "Возвращает информацию о группах по id категории",
+                "summary": "Получение групп по ID категории",
                 "operationId": "getGroupsByCategoryID",
                 "parameters": [
                     {
@@ -422,7 +527,7 @@
                     }
                 ],
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "Successful operation"
                     },
                     "400": {
@@ -430,9 +535,6 @@
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
                     }
                 }
             }
@@ -443,7 +545,6 @@
                     "Лайки"
                 ],
                 "summary": "Поставить лайк",
-                "description": "Возвращает информацию о лайке",
                 "operationId": "storeLikes",
                 "responses": {
                     "201": {
@@ -454,11 +555,13 @@
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
             }
         },
         "/likes/{id}": {
@@ -466,8 +569,7 @@
                 "tags": [
                     "Лайки"
                 ],
-                "summary": "Удаление существующего лайка",
-                "description": "Возвращает удаленный лайк",
+                "summary": "Удалить лайк",
                 "operationId": "deleteLike",
                 "parameters": [
                     {
@@ -481,19 +583,21 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
             }
         },
         "/picture": {
@@ -648,8 +752,7 @@
                 "tags": [
                     "Посты"
                 ],
-                "summary": "Store new post",
-                "description": "Returns post data",
+                "summary": "Создать новый пост",
                 "operationId": "storePost",
                 "responses": {
                     "201": {
@@ -660,11 +763,13 @@
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
             }
         },
         "/post/{id}": {
@@ -672,8 +777,7 @@
                 "tags": [
                     "Посты"
                 ],
-                "summary": "Get post information",
-                "description": "Returns post data",
+                "summary": "Получение поста по ID",
                 "operationId": "getPostById",
                 "parameters": [
                     {
@@ -687,7 +791,7 @@
                     }
                 ],
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "Successful operation"
                     },
                     "400": {
@@ -695,9 +799,6 @@
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
                     }
                 }
             },
@@ -705,8 +806,7 @@
                 "tags": [
                     "Посты"
                 ],
-                "summary": "Update existing post",
-                "description": "Returns updated post data",
+                "summary": "Обновление существующего поста",
                 "operationId": "updatePost",
                 "parameters": [
                     {
@@ -720,7 +820,7 @@
                     }
                 ],
                 "responses": {
-                    "202": {
+                    "201": {
                         "description": "Successful operation"
                     },
                     "400": {
@@ -728,21 +828,19 @@
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
                     "Посты"
                 ],
-                "summary": "Delete existing post",
-                "description": "Deletes a record and returns no content",
+                "summary": "Удаление существующего поста",
                 "operationId": "deletePost",
                 "parameters": [
                     {
@@ -756,19 +854,21 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
             }
         },
         "/save": {
@@ -776,27 +876,30 @@
                 "tags": [
                     "Сохраненные группы"
                 ],
-                "summary": "Get list of saves",
-                "description": "Returns list of saves",
+                "summary": "Получение списка сохраненных групп пользователя",
                 "operationId": "getSaveList",
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
                     "Сохраненные группы"
                 ],
-                "summary": "Store new save",
-                "description": "Returns save data",
+                "summary": "Добавление группы в сохранения пользователя",
                 "operationId": "storeSave",
                 "responses": {
                     "201": {
@@ -807,11 +910,13 @@
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
             }
         },
         "/save/{id}": {
@@ -819,8 +924,7 @@
                 "tags": [
                     "Сохраненные группы"
                 ],
-                "summary": "Delete existing save",
-                "description": "Deletes a record and returns no content",
+                "summary": "Удаление сохраненной группы",
                 "operationId": "deleteSave",
                 "parameters": [
                     {
@@ -834,19 +938,21 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
             }
         },
         "/subscribes/group/{id}": {
@@ -855,7 +961,6 @@
                     "Подписки"
                 ],
                 "summary": "Подписка пользователя на группу",
-                "description": "Возвращает данные о подписке",
                 "operationId": "storeSubscribesGroups",
                 "responses": {
                     "201": {
@@ -866,11 +971,13 @@
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
             }
         },
         "/subscribes/{id}": {
@@ -879,7 +986,6 @@
                     "Подписки"
                 ],
                 "summary": "Получение информации о подписке",
-                "description": "Возвращает информацию о подписке",
                 "operationId": "getSubscribesById",
                 "parameters": [
                     {
@@ -893,7 +999,7 @@
                     }
                 ],
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "Successful operation"
                     },
                     "400": {
@@ -901,18 +1007,19 @@
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
                     "Подписки"
                 ],
                 "summary": "Удаление существующей подписки",
-                "description": "Удаление существующей подписки",
                 "operationId": "deleteSubscribes",
                 "parameters": [
                     {
@@ -926,35 +1033,29 @@
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "201": {
                         "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
                     }
-                }
-            }
-        }
-    },
-    "components": {
-        "securitySchemes": {
-            "bearerToken": {
-                "type": "http",
-                "description": "Login with email and password to get the authentication token",
-                "name": "Token based Based",
-                "in": "header",
-                "bearerFormat": "JWT",
-                "scheme": "bearer"
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
             }
         }
     },
     "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth endpoints"
+        },
         {
             "name": "Категории",
             "description": "Ссылки для работы с категориями"
@@ -988,6 +1089,16 @@
             "description": "Ссылки для работы с подписками"
         }
     ],
+    "components": {
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
     "security": [
         []
     ]

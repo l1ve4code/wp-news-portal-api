@@ -16,7 +16,6 @@ class SubscribesController extends Controller
      *      operationId="storeSubscribesGroups",
      *      tags={"Подписки"},
      *      summary="Подписка пользователя на группу",
-     *      description="Возвращает данные о подписке",
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
@@ -29,10 +28,7 @@ class SubscribesController extends Controller
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
+     *     security={{ "apiKey": {} }}
      * )
      */
     public function store_group($id)
@@ -52,7 +48,6 @@ class SubscribesController extends Controller
      *      operationId="getSubscribesById",
      *      tags={"Подписки"},
      *      summary="Получение информации о подписке",
-     *      description="Возвращает информацию о подписке",
      *      @OA\Parameter(
      *          name="id",
      *          description="Subscribes id",
@@ -63,7 +58,7 @@ class SubscribesController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=200,
+     *          response=201,
      *          description="Successful operation",
      *       ),
      *      @OA\Response(
@@ -74,10 +69,7 @@ class SubscribesController extends Controller
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
+     *     security={{ "apiKey": {} }}
      * )
      */
     public function show($id)
@@ -91,7 +83,6 @@ class SubscribesController extends Controller
      *      operationId="deleteSubscribes",
      *      tags={"Подписки"},
      *      summary="Удаление существующей подписки",
-     *      description="Удаление существующей подписки",
      *      @OA\Parameter(
      *          name="id",
      *          description="Subscribes id",
@@ -102,21 +93,18 @@ class SubscribesController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=204,
+     *          response=201,
      *          description="Successful operation",
      *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
      *      @OA\Response(
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Resource Not Found"
-     *      )
+     *     security={{ "apiKey": {} }}
      * )
      */
     public function destroy($id)

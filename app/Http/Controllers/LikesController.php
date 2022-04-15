@@ -15,7 +15,6 @@ class LikesController extends Controller
      *      operationId="storeLikes",
      *      tags={"Лайки"},
      *      summary="Поставить лайк",
-     *      description="Возвращает информацию о лайке",
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
@@ -28,10 +27,7 @@ class LikesController extends Controller
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
+     *     security={{ "apiKey": {} }}
      * )
      */
     public function store(Request $request)
@@ -53,8 +49,7 @@ class LikesController extends Controller
      *      path="/likes/{id}",
      *      operationId="deleteLike",
      *      tags={"Лайки"},
-     *      summary="Удаление существующего лайка",
-     *      description="Возвращает удаленный лайк",
+     *      summary="Удалить лайк",
      *      @OA\Parameter(
      *          name="id",
      *          description="Like id",
@@ -65,21 +60,18 @@ class LikesController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=204,
+     *          response=201,
      *          description="Successful operation",
      *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
      *      @OA\Response(
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Resource Not Found"
-     *      )
+     *     security={{ "apiKey": {} }}
      * )
      */
     public function destroy($id)

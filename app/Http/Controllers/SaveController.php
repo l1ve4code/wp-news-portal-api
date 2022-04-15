@@ -13,34 +13,7 @@ class SaveController extends Controller
      *      path="/save",
      *      operationId="getSaveList",
      *      tags={"Сохраненные группы"},
-     *      summary="Get list of saves",
-     *      description="Returns list of saves",
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *       ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
-     *     )
-     */
-    public function index()
-    {
-        return save::all();
-    }
-
-    /**
-     * @OA\Post(
-     *      path="/save",
-     *      operationId="storeSave",
-     *      tags={"Сохраненные группы"},
-     *      summary="Store new save",
-     *      description="Returns save data",
+     *      summary="Получение списка сохраненных групп пользователя",
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
@@ -53,10 +26,33 @@ class SaveController extends Controller
      *          response=401,
      *          description="Unauthenticated",
      *      ),
+     *     security={{ "apiKey": {} }}
+     *     )
+     */
+    public function index()
+    {
+        return save::all();
+    }
+
+    /**
+     * @OA\Post(
+     *      path="/save",
+     *      operationId="storeSave",
+     *      tags={"Сохраненные группы"},
+     *      summary="Добавление группы в сохранения пользователя",
      *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
+     *          response=201,
+     *          description="Successful operation",
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *     security={{ "apiKey": {} }}
      * )
      */
     public function store(Request $request)
@@ -74,8 +70,7 @@ class SaveController extends Controller
      *      path="/save/{id}",
      *      operationId="deleteSave",
      *      tags={"Сохраненные группы"},
-     *      summary="Delete existing save",
-     *      description="Deletes a record and returns no content",
+     *      summary="Удаление сохраненной группы",
      *      @OA\Parameter(
      *          name="id",
      *          description="Save id",
@@ -86,21 +81,18 @@ class SaveController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=204,
+     *          response=201,
      *          description="Successful operation",
      *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
      *      @OA\Response(
      *          response=401,
      *          description="Unauthenticated",
      *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Resource Not Found"
-     *      )
+     *     security={{ "apiKey": {} }}
      * )
      */
     public function destroy($id)
