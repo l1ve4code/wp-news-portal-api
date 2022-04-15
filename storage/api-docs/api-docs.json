@@ -112,7 +112,7 @@
             }
         },
         "/logout": {
-            "post": {
+            "get": {
                 "tags": [
                     "Auth"
                 ],
@@ -159,6 +159,25 @@
                 ],
                 "summary": "Создание новой категории",
                 "operationId": "storeCategory",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Новости"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "201": {
                         "description": "Successful operation"
@@ -283,6 +302,35 @@
                 ],
                 "summary": "Создание нового комментария",
                 "operationId": "storeComment",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "post_id",
+                                    "text",
+                                    "date"
+                                ],
+                                "properties": {
+                                    "post_id": {
+                                        "type": "number",
+                                        "example": "3"
+                                    },
+                                    "text": {
+                                        "type": "string",
+                                        "example": "Классный пост"
+                                    },
+                                    "date": {
+                                        "type": "string",
+                                        "example": "2020-01-03"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "201": {
                         "description": "Successful operation"
@@ -391,6 +439,45 @@
                 ],
                 "summary": "Создание новой группы",
                 "operationId": "storeGroups",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "category_id",
+                                    "post_id",
+                                    "title",
+                                    "description",
+                                    "subs_amount"
+                                ],
+                                "properties": {
+                                    "category_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "post_id": {
+                                        "type": "number",
+                                        "example": "5"
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "example": "PolyNews"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Какое-то описание"
+                                    },
+                                    "subs_amount": {
+                                        "type": "number",
+                                        "example": "0"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "201": {
                         "description": "Successful operation"
@@ -546,6 +633,25 @@
                 ],
                 "summary": "Поставить лайк",
                 "operationId": "storeLikes",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "post_id"
+                                ],
+                                "properties": {
+                                    "post_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "201": {
                         "description": "Successful operation"
@@ -754,6 +860,60 @@
                 ],
                 "summary": "Создать новый пост",
                 "operationId": "storePost",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "category_id",
+                                    "group_id",
+                                    "title",
+                                    "description",
+                                    "short_desc",
+                                    "like_amount",
+                                    "see_amount",
+                                    "comm_amount"
+                                ],
+                                "properties": {
+                                    "category_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "group_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Заголовок"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Описание"
+                                    },
+                                    "short_desc": {
+                                        "type": "string",
+                                        "example": "Краткое описание"
+                                    },
+                                    "like_amount": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "see_amount": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "comm_amount": {
+                                        "type": "number",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "201": {
                         "description": "Successful operation"
@@ -901,6 +1061,25 @@
                 ],
                 "summary": "Добавление группы в сохранения пользователя",
                 "operationId": "storeSave",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "post_id"
+                                ],
+                                "properties": {
+                                    "post_id": {
+                                        "type": "number",
+                                        "example": "3"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "201": {
                         "description": "Successful operation"
@@ -962,6 +1141,17 @@
                 ],
                 "summary": "Подписка пользователя на группу",
                 "operationId": "storeSubscribesGroups",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Subscribe id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "201": {
                         "description": "Successful operation"

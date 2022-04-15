@@ -15,6 +15,15 @@ class CommentController extends Controller
      *      operationId="storeComment",
      *      tags={"Комментарии"},
      *      summary="Создание нового комментария",
+     *     @OA\RequestBody(
+     *          required=true,
+     *              @OA\JsonContent(
+     *                  required={"post_id","text","date"},
+     *                  @OA\Property(property="post_id", type="number", example="3"),
+     *                  @OA\Property(property="text", type="string", example="Классный пост"),
+     *                  @OA\Property(property="date", type="string", example="2020-01-03"),
+     *              ),
+     *      ),
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
@@ -32,16 +41,25 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            "user_id" => "required",
+
+        if(!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
+
+        $user_id = auth("sanctum")->user()->id;
+
+        $fields = $request->validate([
             "post_id" => "required",
             "text" => "required",
             "date" => "required",
         ]);
 
-        $created = comment::create($request->all());
+        $created = comment::create([
+            "user_id" => $user_id,
+            "post_id" => $fields["post_id"],
+            "text" => $fields["text"],
+            "date" => $fields["date"],
+        ]);
 
-        if(!$created) return response()->json(["Error" => "Bad request"], 500);
+        if(!$created) return response()->json(["error" => "Bad request"], 400);
 
         return response()->json($created);
     }

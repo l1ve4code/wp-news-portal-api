@@ -41,6 +41,17 @@ class GroupsController extends Controller
      *      operationId="storeGroups",
      *      tags={"Группы"},
      *      summary="Создание новой группы",
+     *     @OA\RequestBody(
+     *          required=true,
+     *              @OA\JsonContent(
+     *                  required={"category_id","post_id","title","description","subs_amount"},
+     *                  @OA\Property(property="category_id", type="number", example="1"),
+     *                  @OA\Property(property="post_id", type="number", example="5"),
+     *                  @OA\Property(property="title", type="string", example="PolyNews"),
+     *                  @OA\Property(property="description", type="string", example="Какое-то описание"),
+     *                  @OA\Property(property="subs_amount", type="number", example="0"),
+     *              ),
+     *      ),
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
@@ -58,16 +69,27 @@ class GroupsController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+
+        if(!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
+
+        $user_id = auth("sanctum")->user()->id;
+
+        $fields = $request->validate([
             "category_id" => "required",
             "post_id" => "required",
             "title" => "required",
             "description" => "required",
             "subs_amount" => "required",
-            "admin_id" => "required",
         ]);
 
-        $created = groups::create($request->all());
+        $created = groups::create([
+            "category_id" => $fields["category_id"],
+            "post_id" => $fields["post_id"],
+            "title" => $fields["title"],
+            "description" => $fields["description"],
+            "subs_amount" => $fields["subs_amount"],
+            "admin_id" => $user_id,
+        ]);
 
         if(isEmpty($created)) return response()->json(["error" => "Bad request"], 400);
 

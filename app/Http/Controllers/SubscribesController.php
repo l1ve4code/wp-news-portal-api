@@ -16,6 +16,15 @@ class SubscribesController extends Controller
      *      operationId="storeSubscribesGroups",
      *      tags={"Подписки"},
      *      summary="Подписка пользователя на группу",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Subscribe id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",

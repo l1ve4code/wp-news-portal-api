@@ -40,6 +40,13 @@ class SaveController extends Controller
      *      operationId="storeSave",
      *      tags={"Сохраненные группы"},
      *      summary="Добавление группы в сохранения пользователя",
+     *     @OA\RequestBody(
+     *          required=true,
+     *              @OA\JsonContent(
+     *                  required={"post_id"},
+     *                  @OA\Property(property="post_id", type="number", example="3"),
+     *              ),
+     *      ),
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
@@ -57,9 +64,18 @@ class SaveController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+
+        if(!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
+
+        $user_id = auth("sanctum")->user()->id;
+
+        $fields = $request->validate([
             "post_id" => "required",
-            "user_id" => "required"
+        ]);
+
+        $save = save::create([
+            "user_id" => $user_id,
+            "post_id" => $fields["post_id"],
         ]);
 
         return save::create($request->all());

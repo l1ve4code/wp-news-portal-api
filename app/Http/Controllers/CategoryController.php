@@ -40,6 +40,13 @@ class CategoryController extends Controller
      *      operationId="storeCategory",
      *      tags={"Категории"},
      *      summary="Создание новой категории",
+     *     @OA\RequestBody(
+     *          required=true,
+     *              @OA\JsonContent(
+     *                  required={"name"},
+     *                  @OA\Property(property="name", type="string", example="Новости"),
+     *              ),
+     *      ),
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",

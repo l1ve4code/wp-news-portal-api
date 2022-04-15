@@ -14,6 +14,20 @@ class PostController extends Controller
      *      operationId="storePost",
      *      tags={"Посты"},
      *      summary="Создать новый пост",
+     *     @OA\RequestBody(
+     *          required=true,
+     *              @OA\JsonContent(
+     *                  required={"category_id","group_id","title","description","short_desc","like_amount","see_amount","comm_amount"},
+     *                  @OA\Property(property="category_id", type="number", example="1"),
+     *                  @OA\Property(property="group_id", type="number", example="1"),
+     *                  @OA\Property(property="title", type="string", example="Заголовок"),
+     *                  @OA\Property(property="description", type="string", example="Описание"),
+     *                  @OA\Property(property="short_desc", type="string", example="Краткое описание"),
+     *                  @OA\Property(property="like_amount", type="number", example="1"),
+     *                  @OA\Property(property="see_amount", type="number", example="1"),
+     *                  @OA\Property(property="comm_amount", type="number", example="1"),
+     *              ),
+     *      ),
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
@@ -31,9 +45,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+
+        if(!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
+
+        $user_id = auth("sanctum")->user()->id;
+
+        $fields = $request->validate([
             "category_id" => "required",
-            "user_id" => "required",
             "group_id" => "required",
             "title" => "required",
             "description" => "required",
@@ -41,6 +59,18 @@ class PostController extends Controller
             "like_amount" => "required",
             "see_amount" => "required",
             "comm_amount" => "required",
+        ]);
+
+        $post = post::create([
+            "category_id" => $fields["category_id"],
+            "group_id" => $fields["group_id"],
+            "user_id" => $user_id,
+            "title" => $fields["title"],
+            "description" => $fields["description"],
+            "short_desc" => $fields["short_desc"],
+            "like_amount" => $fields["like_amount"],
+            "see_amount" => $fields["see_amount"],
+            "comm_amount" => $fields["comm_amount"],
         ]);
 
         return post::create($request->all());
