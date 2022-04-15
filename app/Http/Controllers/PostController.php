@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\post;
 use Illuminate\Http\Request;
+use function PHPUnit\Framework\isEmpty;
 
 class PostController extends Controller
 {
@@ -45,7 +46,6 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-
         if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
 
         $user_id = auth("sanctum")->user()->id;
@@ -76,7 +76,6 @@ class PostController extends Controller
         if (!$created) return response()->json(["error" => "Bad request"], 400);
 
         return response()->json($created, 201);
-
     }
 
     /**
@@ -95,12 +94,12 @@ class PostController extends Controller
      *          )
      *      ),
      *      @OA\Response(
-     *          response=201,
-     *          description="Successful operation",
+     *          response=200,
+     *          description="OK",
      *       ),
      *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
+     *          response=404,
+     *          description="Not found"
      *      ),
      *      @OA\Response(
      *          response=401,
@@ -110,7 +109,11 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return post::find($id);
+        $find = post::find($id);
+
+        if (!$find) return response()->json(["error" => "Not found"], 404);
+
+        return response()->json($find, 200);
     }
 
     /**
@@ -159,7 +162,6 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
 
         $user_id = auth("sanctum")->user()->id;

@@ -41,7 +41,6 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-
         if(!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
 
         $user_id = auth("sanctum")->user()->id;
@@ -93,10 +92,9 @@ class CommentController extends Controller
     {
         $comments = comment::where("post_id", "=", $id)->orderBy("id", "desc")->get();
 
-        if(isEmpty($comments)) return response()->json(["error" => "Comments doesn't exists"], 404);
+        if($comments) return response()->json(["error" => "Comments doesn't exists"], 404);
 
         return response()->json($comments, 200);
-
     }
 
     /**

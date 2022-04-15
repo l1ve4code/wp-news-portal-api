@@ -57,7 +57,6 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-
         if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
 
         $request->validate([
@@ -100,7 +99,7 @@ class CategoryController extends Controller
     {
         $find = category::find($id);
 
-        if (isEmpty($find)) return response()->json(["error" => "Not found"], 404);
+        if (!$find) return response()->json(["error" => "Not found"], 404);
 
         return response()->json($find, 200);
     }
@@ -191,7 +190,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-
         if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
 
         $deleted = category::destroy($id);
@@ -199,7 +197,6 @@ class CategoryController extends Controller
         if (!$deleted) return response()->json(["error" => "Bad Request"], 400);
 
         return response()->json($deleted, 200);
-        
     }
 
     /**

@@ -723,8 +723,8 @@
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Successful operation"
+                    "200": {
+                        "description": "OK"
                     },
                     "400": {
                         "description": "Bad Request"
@@ -985,11 +985,11 @@
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Successful operation"
+                    "200": {
+                        "description": "OK"
                     },
-                    "400": {
-                        "description": "Bad Request"
+                    "404": {
+                        "description": "Not found"
                     },
                     "401": {
                         "description": "Unauthenticated"
@@ -1013,6 +1013,60 @@
                         }
                     }
                 ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "category_id",
+                                    "group_id",
+                                    "title",
+                                    "description",
+                                    "short_desc",
+                                    "like_amount",
+                                    "see_amount",
+                                    "comm_amount"
+                                ],
+                                "properties": {
+                                    "category_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "group_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Заголовок"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Описание"
+                                    },
+                                    "short_desc": {
+                                        "type": "string",
+                                        "example": "Краткое описание"
+                                    },
+                                    "like_amount": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "see_amount": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "comm_amount": {
+                                        "type": "number",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "201": {
                         "description": "Successful operation"
@@ -1048,8 +1102,8 @@
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Successful operation"
+                    "200": {
+                        "description": "OK"
                     },
                     "400": {
                         "description": "Bad Request"
@@ -1073,11 +1127,8 @@
                 "summary": "Получение списка сохраненных групп пользователя",
                 "operationId": "getSaveList",
                 "responses": {
-                    "201": {
-                        "description": "Successful operation"
-                    },
-                    "400": {
-                        "description": "Bad Request"
+                    "200": {
+                        "description": "OK"
                     },
                     "401": {
                         "description": "Unauthenticated"
@@ -1124,12 +1175,7 @@
                     "401": {
                         "description": "Unauthenticated"
                     }
-                },
-                "security": [
-                    {
-                        "apiKey": []
-                    }
-                ]
+                }
             }
         },
         "/save/{id}": {
@@ -1151,8 +1197,8 @@
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Successful operation"
+                    "200": {
+                        "description": "OK"
                     },
                     "400": {
                         "description": "Bad Request"
@@ -1190,8 +1236,8 @@
                     "201": {
                         "description": "Successful operation"
                     },
-                    "400": {
-                        "description": "Bad Request"
+                    "404": {
+                        "description": "Not found"
                     },
                     "401": {
                         "description": "Unauthenticated"
@@ -1223,11 +1269,11 @@
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Successful operation"
+                    "200": {
+                        "description": "OK"
                     },
-                    "400": {
-                        "description": "Bad Request"
+                    "404": {
+                        "description": "Not found"
                     },
                     "401": {
                         "description": "Unauthenticated"
@@ -1257,8 +1303,8 @@
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Successful operation"
+                    "200": {
+                        "description": "OK"
                     },
                     "400": {
                         "description": "Bad Request"

@@ -39,7 +39,6 @@ class LikesController extends Controller
      */
     public function store(Request $request)
     {
-
         if(!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
 
         $user_id = auth("sanctum")->user()->id;
@@ -90,7 +89,6 @@ class LikesController extends Controller
      */
     public function destroy($id)
     {
-
         if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
 
         $deleted = likes::destroy($id);

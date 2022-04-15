@@ -61,7 +61,6 @@ class GroupsController extends Controller
      */
     public function store(Request $request)
     {
-
         if(!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
 
         $user_id = auth("sanctum")->user()->id;
@@ -201,7 +200,6 @@ class GroupsController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         if(!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
 
         $user_id = auth("sanctum")->user()->id;

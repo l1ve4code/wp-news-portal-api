@@ -42,12 +42,11 @@ class SubscribesController extends Controller
      */
     public function store_group($id)
     {
-
         if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
 
         $group = groups::find($id);
 
-        if(isEmpty($group)) return response()->json(["error" => "Group doesn't exists"], 404);
+        if(!$group) return response()->json(["error" => "Group doesn't exists"], 404);
 
         $created = subscribes::create(["group_id" => $id, auth('sanctum')->user()->id]);
 
@@ -86,7 +85,6 @@ class SubscribesController extends Controller
      */
     public function show($id)
     {
-
         if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
 
         $find = subscribes::find($id);
@@ -128,7 +126,6 @@ class SubscribesController extends Controller
      */
     public function destroy($id)
     {
-
         if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
 
         $deleted = subscribes::destroy($id);
