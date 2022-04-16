@@ -40,7 +40,6 @@ class GroupsController extends Controller
      *                  @OA\Property(property="category_id", type="number", example="1"),
      *                  @OA\Property(property="title", type="string", example="PolyNews"),
      *                  @OA\Property(property="description", type="string", example="Какое-то описание"),
-     *                  @OA\Property(property="subs_amount", type="number", example="0"),
      *              ),
      *      ),
      *      @OA\Response(
@@ -175,7 +174,6 @@ class GroupsController extends Controller
      *                  @OA\Property(property="category_id", type="number", example="1"),
      *                  @OA\Property(property="title", type="string", example="PolyNews"),
      *                  @OA\Property(property="description", type="string", example="Какое-то описание"),
-     *                  @OA\Property(property="subs_amount", type="number", example="0"),
      *              ),
      *      ),
      *      @OA\Response(

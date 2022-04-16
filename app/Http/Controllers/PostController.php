@@ -25,9 +25,6 @@ class PostController extends Controller
      *                  @OA\Property(property="title", type="string", example="Заголовок"),
      *                  @OA\Property(property="description", type="string", example="Описание"),
      *                  @OA\Property(property="short_desc", type="string", example="Краткое описание"),
-     *                  @OA\Property(property="like_amount", type="number", example="1"),
-     *                  @OA\Property(property="see_amount", type="number", example="1"),
-     *                  @OA\Property(property="comm_amount", type="number", example="1"),
      *              ),
      *      ),
      *      @OA\Response(
@@ -140,9 +137,6 @@ class PostController extends Controller
      *                  @OA\Property(property="title", type="string", example="Заголовок"),
      *                  @OA\Property(property="description", type="string", example="Описание"),
      *                  @OA\Property(property="short_desc", type="string", example="Краткое описание"),
-     *                  @OA\Property(property="like_amount", type="number", example="1"),
-     *                  @OA\Property(property="see_amount", type="number", example="1"),
-     *                  @OA\Property(property="comm_amount", type="number", example="1"),
      *              ),
      *      ),
      *      @OA\Response(

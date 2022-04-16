@@ -555,10 +555,6 @@
                                     "description": {
                                         "type": "string",
                                         "example": "Какое-то описание"
-                                    },
-                                    "subs_amount": {
-                                        "type": "number",
-                                        "example": "0"
                                     }
                                 },
                                 "type": "object"
@@ -652,10 +648,6 @@
                                     "description": {
                                         "type": "string",
                                         "example": "Какое-то описание"
-                                    },
-                                    "subs_amount": {
-                                        "type": "number",
-                                        "example": "0"
                                     }
                                 },
                                 "type": "object"
@@ -1012,18 +1004,6 @@
                                     "short_desc": {
                                         "type": "string",
                                         "example": "Краткое описание"
-                                    },
-                                    "like_amount": {
-                                        "type": "number",
-                                        "example": "1"
-                                    },
-                                    "see_amount": {
-                                        "type": "number",
-                                        "example": "1"
-                                    },
-                                    "comm_amount": {
-                                        "type": "number",
-                                        "example": "1"
                                     }
                                 },
                                 "type": "object"
@@ -1131,18 +1111,6 @@
                                     "short_desc": {
                                         "type": "string",
                                         "example": "Краткое описание"
-                                    },
-                                    "like_amount": {
-                                        "type": "number",
-                                        "example": "1"
-                                    },
-                                    "see_amount": {
-                                        "type": "number",
-                                        "example": "1"
-                                    },
-                                    "comm_amount": {
-                                        "type": "number",
-                                        "example": "1"
                                     }
                                 },
                                 "type": "object"

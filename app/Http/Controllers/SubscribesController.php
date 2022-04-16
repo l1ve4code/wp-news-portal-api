@@ -128,13 +128,13 @@ class SubscribesController extends Controller
 
         $user_id = auth("sanctum")->user()->id;
 
-        if(!subscribes::find($id)) return response()->json(["error" => "Not found"], 404);
+        if(!subscribes::where("user_id","=", $user_id)->where("group_id", "=", $id)->exists()) return response()->json(["error" => "Not found"], 404);
 
-        if (subscribes::find($id)->user_id != $user_id) return response()->json(["error" => "No access"], 403);
+        $subscribe_id = subscribes::where("user_id","=", $user_id)->where("group_id", "=", $id)->get()[0]["id"];
 
-        $find = subscribes::find($id);
+        $find = subscribes::find($subscribe_id);
 
-        $deleted = subscribes::destroy($id);
+        $deleted = subscribes::destroy($subscribe_id);
 
         if (!$deleted) return response()->json(["error" => "Bad Request"], 400);
 

@@ -120,13 +120,15 @@ class SaveController extends Controller
 
         $user_id = auth("sanctum")->user()->id;
 
-        if(!save::find($id)) return response()->json(["error" => "Not found"], 404);
+        if(!save::where("post_id", "=", $id)->where("user_id", "=", $user_id)->exists()) return response()->json(["error" => "Not found"], 404);
 
-        if (save::find($id)->user_id != $user_id) return response()->json(["error" => "No access"], 403);
+        $save_id = save::where("user_id","=", $user_id)->where("post_id", "=", $id)->get()[0]["id"];
 
-        $find = save::find($id);
+        if (save::find($save_id)->user_id != $user_id) return response()->json(["error" => "No access"], 403);
 
-        $deleted = save::destroy($id);
+        $find = save::find($save_id);
+
+        $deleted = save::destroy($save_id);
 
         if (!$deleted) return response()->json(["error" => "Bad Request"], 400);
 
