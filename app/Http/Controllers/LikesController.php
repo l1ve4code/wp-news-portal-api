@@ -100,13 +100,15 @@ class LikesController extends Controller
 
         $user_id = auth("sanctum")->user()->id;
 
-        if(!likes::find($id)) return response()->json(["error" => "Not found"], 404);
+        if(!likes::where("user_id","=", $user_id)->where("post_id", "=", $id)->exists()) return response()->json(["error" => "Not found"], 404);
 
-        if (likes::find($id)->user_id != $user_id) return response()->json(["error" => "No access"], 403);
+        $like_id = likes::where("user_id","=", $user_id)->where("post_id", "=", $id)->get()[0]["id"];
 
-        $find = likes::find($id);
+        if (likes::find($like_id)->user_id != $user_id) return response()->json(["error" => "No access"], 403);
 
-        $deleted = likes::destroy($id);
+        $find = likes::find($like_id);
+
+        $deleted = likes::destroy($like_id);
 
         $post_like = post::find($find->post_id)->like_amount - 1;
 

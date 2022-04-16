@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\groups;
+use App\Models\likes;
 use App\Models\post;
 use Illuminate\Http\Request;
 use function PHPUnit\Framework\isEmpty;
@@ -104,16 +105,29 @@ class GroupsController extends Controller
      *      @OA\Response(
      *          response=404,
      *          description="Not Found"
-     *      )
+     *      ),
+     *     security={{ "sanctum": {} }}
      * )
      */
     public function show($id)
     {
+
+        if(!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
+
+        $user_id = auth("sanctum")->user()->id;
+
         $group = groups::find($id);
 
         if (!$group) return response()->json(["error" => "Group doesn't exists"], 404);
 
         $posts = post::where("group_id","=", $id)->orderBy("id", "desc")->get();
+
+        foreach ($posts as $post){
+            $post["is_liked"] = false;
+            if(likes::where("user_id", "=", $user_id)->where("post_id", "=", $post->id)->exists()){
+                $post["is_liked"] = true;
+            }
+        }
 
         return response()->json(["group" => $group, "posts" => $posts], 200);
     }
