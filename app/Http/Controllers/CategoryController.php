@@ -151,9 +151,13 @@ class CategoryController extends Controller
 
         $category = category::find($id);
 
-        $updated = $category->update($fields["name"]);
+        $updated = $category->update([
+            "name" => $fields["name"]
+        ]);
 
         if (!$updated) return response()->json(["error" => "Bad Request"], 400);
+
+        $updated = $category::find($id);
 
         return response()->json($updated, 201);
     }
@@ -192,11 +196,15 @@ class CategoryController extends Controller
     {
         if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
 
+        if(!category::find($id)) return response()->json(["error" => "Not found"], 404);
+
+        $find = category::find($id);
+
         $deleted = category::destroy($id);
 
-        if (!$deleted) return response()->json(["error" => "Bad Request"], 400);
+        if (!$deleted) return response()->json(["error" => "Post doesn't exists"], 400);
 
-        return response()->json($deleted, 200);
+        return response()->json($find, 200);
     }
 
     /**

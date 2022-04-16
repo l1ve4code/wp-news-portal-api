@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\groups;
 use App\Models\post;
 use Illuminate\Http\Request;
 use function PHPUnit\Framework\isEmpty;
@@ -56,10 +57,9 @@ class PostController extends Controller
             "title"       => "required",
             "description" => "required",
             "short_desc"  => "required",
-            "like_amount" => "required",
-            "see_amount"  => "required",
-            "comm_amount" => "required",
         ]);
+
+        if(groups::find($fields["group_id"])->admin_id != $user_id) return response()->json(["error" => "No access"], 403);
 
         $created = post::create([
             "category_id" => $fields["category_id"],
@@ -68,9 +68,9 @@ class PostController extends Controller
             "title"       => $fields["title"],
             "description" => $fields["description"],
             "short_desc"  => $fields["short_desc"],
-            "like_amount" => $fields["like_amount"],
-            "see_amount"  => $fields["see_amount"],
-            "comm_amount" => $fields["comm_amount"],
+            "like_amount" => 0,
+            "see_amount"  => 0,
+            "comm_amount" => 0,
         ]);
 
         if (!$created) return response()->json(["error" => "Bad request"], 400);
@@ -176,9 +176,6 @@ class PostController extends Controller
             "title"       => "required",
             "description" => "required",
             "short_desc"  => "required",
-            "like_amount" => "required",
-            "see_amount"  => "required",
-            "comm_amount" => "required",
         ]);
 
         $updated = $post->update([
@@ -188,12 +185,11 @@ class PostController extends Controller
             "title"       => $fields["title"],
             "description" => $fields["description"],
             "short_desc"  => $fields["short_desc"],
-            "like_amount" => $fields["like_amount"],
-            "see_amount"  => $fields["see_amount"],
-            "comm_amount" => $fields["comm_amount"],
         ]);
 
         if (!$updated) return response()->json(["error" => "Bad request"], 400);
+
+        $updated = post::find($id);
 
         return response()->json($updated, 201);
     }
@@ -234,12 +230,16 @@ class PostController extends Controller
 
         $user_id = auth("sanctum")->user()->id;
 
+        if(!post::find($id)) return response()->json(["error" => "Not found"], 404);
+
         if (post::find($id)->user_id != $user_id) return response()->json(["error" => "No access"], 403);
+
+        $find = post::find($id);
 
         $deleted = post::destroy($id);
 
         if (!$deleted) return response()->json(["error" => "Bad Request"], 400);
 
-        return response()->json($deleted, 200);
+        return response()->json($find, 200);
     }
 }

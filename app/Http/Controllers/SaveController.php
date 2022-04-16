@@ -59,6 +59,7 @@ class SaveController extends Controller
      *          response=401,
      *          description="Unauthenticated",
      *      ),
+     *     security={{ "sanctum": {} }}
      * )
      */
     public function store(Request $request)
@@ -70,6 +71,8 @@ class SaveController extends Controller
         $fields = $request->validate([
             "post_id" => "required",
         ]);
+
+        if (save::where("user_id","=", $user_id)->where("post_id", "=", $fields["post_id"])->exists()) return response()->json(["error" => "Save exists"], 403);
 
         $created = save::create([
             "user_id" => $user_id,
@@ -117,12 +120,16 @@ class SaveController extends Controller
 
         $user_id = auth("sanctum")->user()->id;
 
+        if(!save::find($id)) return response()->json(["error" => "Not found"], 404);
+
         if (save::find($id)->user_id != $user_id) return response()->json(["error" => "No access"], 403);
+
+        $find = save::find($id);
 
         $deleted = save::destroy($id);
 
         if (!$deleted) return response()->json(["error" => "Bad Request"], 400);
 
-        return response()->json($deleted, 200);
+        return response()->json($find, 200);
     }
 }

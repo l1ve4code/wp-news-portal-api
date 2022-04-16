@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\comment;
+use App\Models\post;
 use Illuminate\Http\Request;
 use function PHPUnit\Framework\isEmpty;
 
@@ -58,6 +59,12 @@ class CommentController extends Controller
             "date" => $fields["date"],
         ]);
 
+        $comm_amount = post::find($fields["post_id"])->comm_amount + 1;
+
+        post::find($fields["post_id"])->update([
+            "comm_amount" => $comm_amount
+        ]);
+
         if(!$created) return response()->json(["error" => "Bad request"], 400);
 
         return response()->json($created, 201);
@@ -85,14 +92,16 @@ class CommentController extends Controller
      *      @OA\Response(
      *          response=404,
      *          description="Not Found"
-     *      )
+     *      ),
+     *      security={{ "sanctum": {} }}
+
      * )
      */
     public function show($id)
     {
         $comments = comment::where("post_id", "=", $id)->orderBy("id", "desc")->get();
 
-        if($comments) return response()->json(["error" => "Comments doesn't exists"], 404);
+        if(!$comments) return response()->json(["error" => "Comments doesn't exists"], 404);
 
         return response()->json($comments, 200);
     }
@@ -133,12 +142,22 @@ class CommentController extends Controller
 
         $user_id = auth("sanctum")->user()->id;
 
+        if(!comment::find($id)) return response()->json(["error" => "Not found"], 404);
+
         if (comment::find($id)->user_id != $user_id) return response()->json(["error" => "No access"], 403);
+
+        $find = comment::find($id);
 
         $deleted = comment::destroy($id);
 
+        $comm_amount = post::find($find->post_id)->comm_amount - 1;
+
+        post::find($find->post_id)->update([
+            "comm_amount" => $comm_amount
+        ]);
+
         if (!$deleted) return response()->json(["error" => "Bad Request"], 400);
 
-        return response()->json($deleted, 200);
+        return response()->json($find, 200);
     }
 }

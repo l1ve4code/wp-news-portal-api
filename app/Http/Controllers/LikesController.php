@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\likes;
+use App\Models\post;
 use Illuminate\Http\Request;
 use function PHPUnit\Framework\isEmpty;
 
@@ -47,10 +48,16 @@ class LikesController extends Controller
             "post_id" => "required",
         ]);
 
+        if (likes::where("user_id","=", $user_id)->where("post_id", "=", $fields["post_id"])->exists()) return response()->json(["error" => "Like exists"], 403);
+
         $created = likes::create([
             "user_id" => $user_id,
             "post_id" => $fields["post_id"]
         ]);
+
+        $post_like = post::find($fields["post_id"])->like_amount + 1;
+
+        post::find($fields["post_id"])->update(["like_amount" => $post_like]);
 
         if(!$created) return response()->json(["error" => "Bad request"], 400);
 
@@ -93,12 +100,20 @@ class LikesController extends Controller
 
         $user_id = auth("sanctum")->user()->id;
 
+        if(!likes::find($id)) return response()->json(["error" => "Not found"], 404);
+
         if (likes::find($id)->user_id != $user_id) return response()->json(["error" => "No access"], 403);
+
+        $find = likes::find($id);
 
         $deleted = likes::destroy($id);
 
+        $post_like = post::find($find->post_id)->like_amount - 1;
+
+        post::find($find->post_id)->update(["like_amount" => $post_like]);
+
         if (!$deleted) return response()->json(["error" => "Bad Request"], 400);
 
-        return response()->json($deleted, 200);
+        return response()->json($find, 200);
     }
 }

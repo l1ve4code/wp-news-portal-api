@@ -11,7 +11,7 @@
     },
     "servers": [
         {
-            "url": "http://news-portal-api.std-926.ist.mospolytech.ru/api",
+            "url": "http://news-portal.local/api",
             "description": "API"
         }
     ],
@@ -470,7 +470,12 @@
                     "404": {
                         "description": "Not Found"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -542,10 +547,6 @@
                                     "category_id": {
                                         "type": "number",
                                         "example": "1"
-                                    },
-                                    "post_id": {
-                                        "type": "number",
-                                        "example": "5"
                                     },
                                     "title": {
                                         "type": "string",
@@ -643,10 +644,6 @@
                                     "category_id": {
                                         "type": "number",
                                         "example": "1"
-                                    },
-                                    "post_id": {
-                                        "type": "number",
-                                        "example": "5"
                                     },
                                     "title": {
                                         "type": "string",
@@ -1261,7 +1258,12 @@
                     "401": {
                         "description": "Unauthenticated"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
         "/save/{id}": {

@@ -33,7 +33,7 @@ class SubscribesController extends Controller
 
         $user_id = auth("sanctum")->user()->id;
 
-        return response()->json(subscribes::where("user_id","=", $user_id)->get(), 200);
+        return response()->json(subscribes::where("user_id", "=", $user_id)->get(), 200);
     }
 
     /**
@@ -70,11 +70,24 @@ class SubscribesController extends Controller
     {
         if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
 
+        $user_id = auth("sanctum")->user()->id;
+
         $group = groups::find($id);
 
-        if(!$group) return response()->json(["error" => "Group doesn't exists"], 404);
+        if (subscribes::where("user_id", "=", $user_id)->where("group_id", "=", $id)->exists()) return response()->json(["error" => "Subscribe exists"], 403);
 
-        $created = subscribes::create(["group_id" => $id, auth('sanctum')->user()->id]);
+        if (!$group) return response()->json(["error" => "Group doesn't exists"], 404);
+
+        $created = subscribes::create([
+            "user_id"  => $user_id,
+            "group_id" => $id
+        ]);
+
+        $group_subs = $group->subs_amount + 1;
+
+        groups::find($id)->update([
+            "subs_amount" => $group_subs
+        ]);
 
         return response()->json($created, 201);
     }
@@ -115,12 +128,22 @@ class SubscribesController extends Controller
 
         $user_id = auth("sanctum")->user()->id;
 
+        if(!subscribes::find($id)) return response()->json(["error" => "Not found"], 404);
+
         if (subscribes::find($id)->user_id != $user_id) return response()->json(["error" => "No access"], 403);
+
+        $find = subscribes::find($id);
 
         $deleted = subscribes::destroy($id);
 
         if (!$deleted) return response()->json(["error" => "Bad Request"], 400);
 
-        return response()->json($deleted, 200);
+        $group_subs = groups::find($find->group_id)->subs_amount - 1;
+
+        groups::find($find->group_id)->update([
+            "subs_amount" => $group_subs
+        ]);
+
+        return response()->json($find, 200);
     }
 }

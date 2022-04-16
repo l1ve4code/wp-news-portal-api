@@ -10,7 +10,6 @@ class groups extends Model
     protected $table = "groups";
     protected $fillable = [
         "category_id",
-        "post_id",
         "title",
         "description",
         "subs_amount",

@@ -38,7 +38,6 @@ class GroupsController extends Controller
      *              @OA\JsonContent(
      *                  required={"category_id","post_id","title","description","subs_amount"},
      *                  @OA\Property(property="category_id", type="number", example="1"),
-     *                  @OA\Property(property="post_id", type="number", example="5"),
      *                  @OA\Property(property="title", type="string", example="PolyNews"),
      *                  @OA\Property(property="description", type="string", example="Какое-то описание"),
      *                  @OA\Property(property="subs_amount", type="number", example="0"),
@@ -67,18 +66,15 @@ class GroupsController extends Controller
 
         $fields = $request->validate([
             "category_id" => "required",
-            "post_id" => "required",
             "title" => "required",
             "description" => "required",
-            "subs_amount" => "required",
         ]);
 
         $created = groups::create([
             "category_id" => $fields["category_id"],
-            "post_id" => $fields["post_id"],
             "title" => $fields["title"],
             "description" => $fields["description"],
-            "subs_amount" => $fields["subs_amount"],
+            "subs_amount" => 0,
             "admin_id" => $user_id,
         ]);
 
@@ -177,7 +173,6 @@ class GroupsController extends Controller
      *              @OA\JsonContent(
      *                  required={"category_id","post_id","title","description","subs_amount"},
      *                  @OA\Property(property="category_id", type="number", example="1"),
-     *                  @OA\Property(property="post_id", type="number", example="5"),
      *                  @OA\Property(property="title", type="string", example="PolyNews"),
      *                  @OA\Property(property="description", type="string", example="Какое-то описание"),
      *                  @OA\Property(property="subs_amount", type="number", example="0"),
@@ -210,22 +205,20 @@ class GroupsController extends Controller
 
         $fields = $request->validate([
             "category_id" => "required",
-            "post_id" => "required",
             "title" => "required",
             "description" => "required",
-            "subs_amount" => "required",
         ]);
 
         $updated = $group->update([
             "category_id" => $fields["category_id"],
-            "post_id" => $fields["post_id"],
             "title" => $fields["title"],
             "description" => $fields["description"],
-            "subs_amount" => $fields["subs_amount"],
             "admin_id" => $user_id,
         ]);
 
         if (!$updated) return response()->json(["error" => "Bad Request"], 400);
+
+        $updated = groups::find($id);
 
         return response()->json($updated, 201);
     }
@@ -266,12 +259,16 @@ class GroupsController extends Controller
 
         $user_id = auth("sanctum")->user()->id;
 
+        if(!groups::find($id)) return response()->json(["error" => "Not found"], 404);
+
         if (groups::find($id)->admin_id != $user_id) return response()->json(["error" => "No access"], 403);
+
+        $find = groups::find($id);
 
         $deleted = groups::destroy($id);
 
         if (!$deleted) return response()->json(["error" => "Bad Request"], 400);
 
-        return response()->json($deleted, 200);
+        return response()->json($find, 200);
     }
 }
