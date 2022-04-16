@@ -11,6 +11,32 @@ class SubscribesController extends Controller
 {
 
     /**
+     * @OA\Get(
+     *      path="/subscribes",
+     *      operationId="getSubscribes",
+     *      tags={"Подписки"},
+     *      summary="Получение списка подписок пользователя",
+     *      @OA\Response(
+     *          response=200,
+     *          description="OK",
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *     security={{ "sanctum": {} }}
+     *     )
+     */
+    public function index()
+    {
+        if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
+
+        $user_id = auth("sanctum")->user()->id;
+
+        return response()->json(subscribes::where("user_id","=", $user_id)->get(), 200);
+    }
+
+    /**
      * @OA\Post(
      *      path="/subscribes/group/{id}",
      *      operationId="storeSubscribesGroups",
@@ -54,49 +80,8 @@ class SubscribesController extends Controller
     }
 
     /**
-     * @OA\Get(
-     *      path="/subscribes/{id}",
-     *      operationId="getSubscribesById",
-     *      tags={"Подписки"},
-     *      summary="Получение информации о подписке",
-     *      @OA\Parameter(
-     *          name="id",
-     *          description="Subscribes id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="OK",
-     *       ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Not found"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *     security={{ "sanctum": {} }}
-     * )
-     */
-    public function show($id)
-    {
-        if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
-
-        $find = subscribes::find($id);
-
-        if (!$find) return response()->json(["error" => "Not found"], 404);
-
-        return response()->json($find, 200);
-    }
-
-    /**
      * @OA\Delete(
-     *      path="/subscribes/{id}",
+     *      path="/subscribes/group/{id}",
      *      operationId="deleteSubscribes",
      *      tags={"Подписки"},
      *      summary="Удаление существующей подписки",

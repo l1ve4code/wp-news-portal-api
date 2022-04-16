@@ -86,8 +86,7 @@ Route::group(["middleware" => ["auth:sanctum"]], function () {
 
     // SUBSCRIBES
     Route::post("/subscribes/group/{id}", [SubscribesController::class, "store_group"]);
-    Route::get("/subscribes/{id}", [SubscribesController::class, "show"]);
-    Route::delete("/subscribes/{id}", [SubscribesController::class, "destroy"]);
+    Route::delete("/subscribes/group/{id}", [SubscribesController::class, "destroy"]);
 
     Route::get("/logout", [AuthController::class, "logout"]);
 });
