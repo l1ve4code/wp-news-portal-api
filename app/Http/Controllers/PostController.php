@@ -166,6 +166,8 @@ class PostController extends Controller
 
         $user_id = auth("sanctum")->user()->id;
 
+        if (post::find($id)->user_id != $user_id) return response()->json(["error" => "No access"], 403);
+
         $post = post::find($id);
 
         $fields = $request->validate([
@@ -229,6 +231,10 @@ class PostController extends Controller
     public function destroy($id)
     {
         if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
+
+        $user_id = auth("sanctum")->user()->id;
+
+        if (post::find($id)->user_id != $user_id) return response()->json(["error" => "No access"], 403);
 
         $deleted = post::destroy($id);
 

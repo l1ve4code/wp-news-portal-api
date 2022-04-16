@@ -204,6 +204,8 @@ class GroupsController extends Controller
 
         $user_id = auth("sanctum")->user()->id;
 
+        if (groups::find($id)->admin_id != $user_id) return response()->json(["error" => "No access"], 403);
+
         $group = groups::find($id);
 
         $fields = $request->validate([
@@ -261,6 +263,10 @@ class GroupsController extends Controller
     public function destroy($id)
     {
         if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
+
+        $user_id = auth("sanctum")->user()->id;
+
+        if (groups::find($id)->admin_id != $user_id) return response()->json(["error" => "No access"], 403);
 
         $deleted = groups::destroy($id);
 

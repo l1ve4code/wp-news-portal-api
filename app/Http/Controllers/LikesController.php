@@ -91,6 +91,10 @@ class LikesController extends Controller
     {
         if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
 
+        $user_id = auth("sanctum")->user()->id;
+
+        if (likes::find($id)->user_id != $user_id) return response()->json(["error" => "No access"], 403);
+
         $deleted = likes::destroy($id);
 
         if (!$deleted) return response()->json(["error" => "Bad Request"], 400);

@@ -29,7 +29,9 @@ class SaveController extends Controller
     {
         if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
 
-        return response()->json(save::all(), 200);
+        $user_id = auth("sanctum")->user()->id;
+
+        return response()->json(save::where("user_id", "=", $user_id)->get(), 200);
     }
 
     /**
@@ -112,6 +114,10 @@ class SaveController extends Controller
     public function destroy($id)
     {
         if (!auth("sanctum")->check()) return response()->json(["error" => "Unauthenticated"], 401);
+
+        $user_id = auth("sanctum")->user()->id;
+
+        if (save::find($id)->user_id != $user_id) return response()->json(["error" => "No access"], 403);
 
         $deleted = save::destroy($id);
 
