@@ -11,7 +11,7 @@
     },
     "servers": [
         {
-            "url": "http://news-portal-api.std-926.ist.mospolytech.ru/api",
+            "url": "http://news-portal.local/api",
             "description": "API"
         }
     ],
