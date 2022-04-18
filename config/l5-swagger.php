@@ -288,7 +288,7 @@ return [
          * Constants which can be used in annotations
          */
         'constants' => [
-            'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST', 'http://news-portal-api.std-926.ist.mospolytech.ru/api/docs'),
+            'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST', 'http://news-portal-api.std-926.ist.mospolytech.ru/api'),
         ],
     ],
 ];
